@@ -45,9 +45,11 @@ public class Stage {
         // 背景描画
         params = mMainView.getMainRenderer().allocDrawParams();
         params.setSprite(Game.TEXNO_BACK);
-        params.getScl().X = 22.0f;
+        params.getScl().X = 1.5f;
+        params.getScl().Y = 1.5f;
 
         // ビル描画
+        /*
         float sx = -_x / 2 + ((int) _x / 2 / 202) * 202;
         for (int i = 0; i < 4; i++) {
             params = mMainView.getMainRenderer().allocDrawParams();
@@ -55,6 +57,7 @@ public class Stage {
             params.getPos().X = sx + i * 202;
             params.getPos().Y = 480;
         }
+        */
 
         // 障害物描画
         int cnt = mBlockParams.length;
