@@ -88,6 +88,7 @@ public class Stage {
 
         if (ay0 < 0) return (true);
         if (ay1 >= MainRenderer.CONTENTS_H) return (true);
+        if (1 == 1) return false;
 
         // 障害物描画
         float bx0, bx1, by0 = 0.0f, by1 = 0.0f;
