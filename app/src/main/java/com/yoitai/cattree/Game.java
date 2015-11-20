@@ -22,12 +22,15 @@ public class Game {
     // 内容が変化するゲーム情報
     long mFrameNo;
     Stage mStage;
-    CAT mCAT;
+    CAT[] mCAT;
 
     // コンストラクタ
     public Game() {
         mStage = new Stage();
-        mCAT = new CAT();
+        mCAT = new CAT[5];
+        for (int i = 0; i < 5; i++) {
+            mCAT[i] = new CAT();
+        }
     }
 
     // viewの設定
@@ -38,9 +41,11 @@ public class Game {
 
         mStage.setView(_view);
 
-        mCAT.setView(_view);
-        mCAT.setInput(mInput);
-        mCAT.setStage(mStage);
+        for (int i = 0; i < 5; i++) {
+            mCAT[i].setView(_view);
+            mCAT[i].setInput(mInput);
+            mCAT[i].setStage(mStage);
+        }
     }
 
     // ゲーム初期化処理(MyRendererからonSurfaceCreated時に実行されます)
@@ -50,7 +55,7 @@ public class Game {
         mMyRenderer.getTexture(TEXNO_CATTREE).readTexture(mMainActivity, "tree.png", 512, 512, 256.0f, 256.0f, 0.0f, 0.0f);
         mMyRenderer.getTexture(TEXNO_TBLOCK).readTexture(mMainActivity, "tpole.png", 109, 512, 0.0f, 498.0f, 0.0f, -498.0f);
         mMyRenderer.getTexture(TEXNO_BBLOCK).readTexture(mMainActivity, "bpole.png", 109, 512, 0.0f, 16.0f, 0.0f, -16.0f);
-        mMyRenderer.getTexture(TEXNO_CHAR0).readTexture(mMainActivity, "cat.png", 256, 256, 0.0f, 0.0f, -100.0f, -128.0f);
+        mMyRenderer.getTexture(TEXNO_CHAR0).readTexture(mMainActivity, "cat.png", 256, 256, 100.0f, 128.0f, -100.0f, -128.0f);
         mMyRenderer.getTexture(TEXNO_CHAR1).readTexture(mMainActivity, "ufo_fire1.png", 173, 138, 84.0f, 57.0f, -84.0f, -57.0f);
         mMyRenderer.getTexture(TEXNO_CHAR2).readTexture(mMainActivity, "ufo_fire2.png", 173, 138, 84.0f, 57.0f, -84.0f, -57.0f);
         mMyRenderer.getTexture(TEXNO_ENEMY0).readTexture(mMainActivity, "bird1.png", 86, 79, 44.0f, 40.0f, -44.0f, -40.0f);
@@ -65,7 +70,9 @@ public class Game {
         mStage.frameFunction();
 
         // UFOのフレーム処理
-        mCAT.frameFunction();
+        for (int i = 0; i < 5; i++) {
+            mCAT[i].frameFunction();
+        }
 
         mFrameNo++;
 
@@ -79,6 +86,8 @@ public class Game {
         mStage.draw(0);
 
         // ねこの描画
-        mCAT.draw();
+        for (int i = 0; i < 5; i++) {
+            mCAT[i].draw();
+        }
     }
 }

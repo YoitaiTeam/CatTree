@@ -29,7 +29,11 @@ public class CAT {
     // コンストラクタ
     public CAT() {
         mStatus = STAT_WAITING;
-        mPos = new Vector2(MainRenderer.CONTENTS_W / 4, MainRenderer.CONTENTS_H / 2);
+        double init_x = Math.random() * MainRenderer.CONTENTS_W;
+//        double init_x = MainRenderer.CONTENTS_W / 4;
+        double init_y = Math.random() * MainRenderer.CONTENTS_H;
+//        double init_y = MainRenderer.CONTENTS_H / 2;
+        mPos = new Vector2((float) init_x, (float) init_y);
         mSpeed = new Vector2(SPEED, 0.0f);
         mAccel = new Vector2(0.0f, 0.0f);
         mFrameNo = 0;
@@ -55,19 +59,20 @@ public class CAT {
             case STAT_WAITING: {
                 // 待ち状態
                 mPatternNo = Game.TEXNO_CHAR0;
-                if (mInput.checkStatus(Input.STATUS_DOWN)) {
+                if (mInput.checkStatus(Input.STATUS_DOWN) && touchTest()) {
                     // 画面がタッチされた：開始へ
                     mStatus = STAT_PLAYING;
                 }
             }
             break;
             case STAT_PLAYING: {
+
                 // プレイ中
-                if (mInput.checkStatus(Input.STATUS_PUSH)) {
-                    // 画面をプッシュされた
-                    mSpeed.Y = PUSH_SPEED_Y;
-                    mAccel.Y = 0.0f;
-                }
+//                if (mInput.checkStatus(Input.STATUS_PUSH)) {
+//                    // 画面をプッシュされた
+//                    mSpeed.Y = PUSH_SPEED_Y;
+//                    mAccel.Y = 0.0f;
+//                }
 
                 mPos.Add(mSpeed);
                 if (mStage.hitTest(mPos.X, mPos.Y, 32.0f, 32.0f)) {
@@ -110,9 +115,20 @@ public class CAT {
 
     // ゲームリセット
     void reset() {
+        double init_x = Math.random() * MainRenderer.CONTENTS_W;
+        double init_y = Math.random() * MainRenderer.CONTENTS_H;
+
         mStatus = STAT_WAITING;
-        mPos.Set(MainRenderer.CONTENTS_W / 4, MainRenderer.CONTENTS_H / 2);
+        mPos.Set((float) init_x, (float) init_y);
         mSpeed.Set(SPEED, 0.0f);
         mAccel.Set(0.0f, 0.0f);
+    }
+
+    public boolean touchTest() {
+        float x = mInput.getX() - mPos.X;
+        float y = mInput.getY() - mPos.Y;
+
+        if (x > 0 && x < 60 && Math.abs(y) < 64) return true;
+        return false;
     }
 }
