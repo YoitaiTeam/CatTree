@@ -4,7 +4,7 @@ package com.yoitai.cattree;
 public class Game {
     // テクスチャ番号
     public static final int TEXNO_BACK = 0;    // 背景
-    public static final int TEXNO_BUILDING = 1;    // 建物
+    public static final int TEXNO_CATTREE = 1; // ねこのなる木
     public static final int TEXNO_TBLOCK = 2;        // 障害物上
     public static final int TEXNO_BBLOCK = 3;        // 障害物下
     public static final int TEXNO_CHAR0 = 4;        // キャラクタ0
@@ -47,7 +47,7 @@ public class Game {
     public void gameInitialize() {
         // 各テクスチャ読み込み
         mMyRenderer.getTexture(TEXNO_BACK).readTexture(mMainActivity, "background.png", 512, 512, 256.0f, 256.0f, 0.0f, 0.0f);
-        mMyRenderer.getTexture(TEXNO_BUILDING).readTexture(mMainActivity, "building.png", 202, 158, 0.0f, 158.0f, 0.0f, -158.0f);
+        mMyRenderer.getTexture(TEXNO_CATTREE).readTexture(mMainActivity, "tree.png", 512, 512, 256.0f, 256.0f, 0.0f, 0.0f);
         mMyRenderer.getTexture(TEXNO_TBLOCK).readTexture(mMainActivity, "tpole.png", 109, 512, 0.0f, 498.0f, 0.0f, -498.0f);
         mMyRenderer.getTexture(TEXNO_BBLOCK).readTexture(mMainActivity, "bpole.png", 109, 512, 0.0f, 16.0f, 0.0f, -16.0f);
         mMyRenderer.getTexture(TEXNO_CHAR0).readTexture(mMainActivity, "ufo_default.png", 173, 90, 84.0f, 57.0f, -84.0f, -57.0f);
@@ -73,7 +73,7 @@ public class Game {
         // スクリーンクリア
         DrawParams params;
         params = mMyRenderer.allocDrawParams();
-        params.setScreenClear(1.0f, 0.0f, 0.0f);
+        params.setScreenClear(0.0f, 0.0f, 0.0f);
 
         // ステージ描画
         mStage.draw(mUFO.mPos.X - MainRenderer.CONTENTS_W / 4);

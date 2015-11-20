@@ -48,16 +48,9 @@ public class Stage {
         params.getScl().X = 1.5f;
         params.getScl().Y = 1.5f;
 
-        // ビル描画
-        /*
-        float sx = -_x / 2 + ((int) _x / 2 / 202) * 202;
-        for (int i = 0; i < 4; i++) {
-            params = mMainView.getMainRenderer().allocDrawParams();
-            params.setSprite(Game.TEXNO_BUILDING);
-            params.getPos().X = sx + i * 202;
-            params.getPos().Y = 480;
-        }
-        */
+        // CATTREE描画
+        params = mMainView.getMainRenderer().allocDrawParams();
+        params.setSprite(Game.TEXNO_CATTREE);
 
         // 障害物描画
         int cnt = mBlockParams.length;
