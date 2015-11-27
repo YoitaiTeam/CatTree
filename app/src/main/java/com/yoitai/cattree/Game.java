@@ -5,8 +5,8 @@ public class Game {
     // テクスチャ番号
     public static final int TEXNO_BACK = 0;    // 背景
     public static final int TEXNO_CATTREE = 1; // ねこのなる木
-    public static final int TEXNO_TBLOCK = 2;        // 障害物上
-    public static final int TEXNO_BBLOCK = 3;        // 障害物下
+    public static final int MENU01 = 2;        // メニューA
+    public static final int MENU02 = 3;        // メニューB
     public static final int TEXNO_CHAR0 = 4;        // キャラクタ0
     public static final int TEXNO_CHAR1 = 5;        // キャラクタ1
     public static final int TEXNO_CHAR2 = 6;        // キャラクタ2
@@ -53,8 +53,8 @@ public class Game {
         // 各テクスチャ読み込み
         mMyRenderer.getTexture(TEXNO_BACK).readTexture(mMainActivity, "background.png", 512, 512, 256.0f, 256.0f, 0.0f, 0.0f);
         mMyRenderer.getTexture(TEXNO_CATTREE).readTexture(mMainActivity, "tree.png", 512, 512, 256.0f, 256.0f, 0.0f, 0.0f);
-        mMyRenderer.getTexture(TEXNO_TBLOCK).readTexture(mMainActivity, "tpole.png", 109, 512, 0.0f, 498.0f, 0.0f, -498.0f);
-        mMyRenderer.getTexture(TEXNO_BBLOCK).readTexture(mMainActivity, "bpole.png", 109, 512, 0.0f, 16.0f, 0.0f, -16.0f);
+        mMyRenderer.getTexture(MENU01).readTexture(mMainActivity, "menu01.png", 100, 100, 256.0f, 256.0f, 0.0f, 0.0f);
+        mMyRenderer.getTexture(MENU02).readTexture(mMainActivity, "menu02.png", 100, 100, 256.0f, 256.0f, 130.0f, 0.0f);
         mMyRenderer.getTexture(TEXNO_CHAR0).readTexture(mMainActivity, "cat.png", 256, 256, 100.0f, 128.0f, -100.0f, -128.0f);
         mMyRenderer.getTexture(TEXNO_CHAR1).readTexture(mMainActivity, "ufo_fire1.png", 173, 138, 84.0f, 57.0f, -84.0f, -57.0f);
         mMyRenderer.getTexture(TEXNO_CHAR2).readTexture(mMainActivity, "ufo_fire2.png", 173, 138, 84.0f, 57.0f, -84.0f, -57.0f);

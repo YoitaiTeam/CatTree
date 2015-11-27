@@ -52,8 +52,14 @@ public class Stage {
         params = mMainView.getMainRenderer().allocDrawParams();
         params.setSprite(Game.TEXNO_CATTREE);
 
+        // MENU描画
+        params = mMainView.getMainRenderer().allocDrawParams();
+        params.setSprite(Game.MENU01);
+        params = mMainView.getMainRenderer().allocDrawParams();
+        params.setSprite(Game.MENU02);
+
         // 障害物描画
-        int cnt = mBlockParams.length;
+        /*int cnt = mBlockParams.length;
         for (int i = 0; i < cnt; i++) {
             BlockParams bp = mBlockParams[i];
             float x = bp.mPosX - _x;
@@ -77,7 +83,7 @@ public class Stage {
                     break;
                 }
             }
-        }
+        }*/
     }
 
     public boolean hitTest(float _x, float _y, float _w, float _h) {
