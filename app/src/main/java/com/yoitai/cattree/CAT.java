@@ -25,6 +25,7 @@ public class Cat {
     Stage mStage;       // ステージ
     int mFrameNo;       // フレーム番号
     int mPatternNo;    // パターン番号
+    static int pattern = 0; // TODO 一時的なものちゃんと実装します
 
     // コンストラクタ
     public Cat() {
@@ -37,7 +38,8 @@ public class Cat {
         mSpeed = new Vector2(SPEED, 0.0f);
         mAccel = new Vector2(0.0f, 0.0f);
         mFrameNo = 0;
-        mPatternNo = 0;
+        int[] pattern = {Game.TEXNO_CHAR0, Game.TEXNO_CHAR1, Game.TEXNO_CHAR2};
+        mPatternNo = pattern[this.pattern++ % 3];
     }
 
     // setter
@@ -58,7 +60,6 @@ public class Cat {
         switch (mStatus) {
             case STAT_WAITING: {
                 // 待ち状態
-                mPatternNo = Game.TEXNO_CHAR0;
                 if (mInput.checkStatus(Input.STATUS_DOWN) && touchTest()) {
                     // 画面がタッチされた：開始へ
                     mStatus = STAT_PLAYING;
@@ -91,7 +92,7 @@ public class Cat {
             break;
             case STAT_DEAD: {
                 // 死亡：初期化
-                mPatternNo = Game.TEXNO_CHAR0;
+//                mPatternNo = Game.TEXNO_CHAR0;
                 reset();
             }
             break;
@@ -109,8 +110,8 @@ public class Cat {
             params.setSprite(mPatternNo);
             params.getPos().X = mPos.X;
             params.getPos().Y = mPos.Y;
-            params.getScl().X = 0.5f;
-            params.getScl().Y = 0.5f;
+            params.getScl().X = 1.0f;
+            params.getScl().Y = 1.0f;
             params.setRot(Calc.CalcAngleRad(mSpeed.X, mSpeed.Y / 8, false));
         }
     }
