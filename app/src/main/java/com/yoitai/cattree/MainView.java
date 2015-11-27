@@ -10,6 +10,7 @@ public class MainView extends GLSurfaceView {
     MainRenderer mMainRenderer;
     MainActivity mMainActivity;
     MainThread mMainThread;
+    SePlayer mSePlayer;
     Input mInput;
     MainThreadCore mMainThreadCore;
 
@@ -25,6 +26,9 @@ public class MainView extends GLSurfaceView {
 
         // GLSurfaceのレンダリングクラスのインスタンス化
         mMainRenderer = new MainRenderer(this);
+
+        // SEクラスのインスタンス化
+        mSePlayer = new SePlayer();
 
         // 入力管理クラスのインスタンス化
         mInput = new Input();
@@ -102,6 +106,11 @@ public class MainView extends GLSurfaceView {
     // MainRenderer取得
     public MainRenderer getMainRenderer() {
         return (mMainRenderer);
+    }
+
+    // SePlayer取得
+    public SePlayer getmSePlayer() {
+        return (mSePlayer);
     }
 
     public MainActivity getMainActivity() {

@@ -17,19 +17,21 @@ public class Game {
     // メンバー変数
     MainActivity mMainActivity;
     MainRenderer mMyRenderer;
+    SePlayer mSePlayer;
+
     Input mInput;
 
     // 内容が変化するゲーム情報
     long mFrameNo;
     Stage mStage;
-    CAT[] mCAT;
+    Cat[] mCat;
 
     // コンストラクタ
     public Game() {
         mStage = new Stage();
-        mCAT = new CAT[5];
+        mCat = new Cat[5];
         for (int i = 0; i < 5; i++) {
-            mCAT[i] = new CAT();
+            mCat[i] = new Cat();
         }
     }
 
@@ -37,14 +39,15 @@ public class Game {
     public void setView(MainView _view) {
         mMainActivity = _view.getMainActivity();
         mMyRenderer = _view.mMainRenderer;
+        mSePlayer = _view.mSePlayer;
         mInput = _view.mInput;
 
         mStage.setView(_view);
 
         for (int i = 0; i < 5; i++) {
-            mCAT[i].setView(_view);
-            mCAT[i].setInput(mInput);
-            mCAT[i].setStage(mStage);
+            mCat[i].setView(_view);
+            mCat[i].setInput(mInput);
+            mCat[i].setStage(mStage);
         }
     }
 
@@ -61,6 +64,11 @@ public class Game {
         mMyRenderer.getTexture(TEXNO_ENEMY0).readTexture(mMainActivity, "bird1.png", 86, 79, 44.0f, 40.0f, -44.0f, -40.0f);
         mMyRenderer.getTexture(TEXNO_ENEMY1).readTexture(mMainActivity, "bird2.png", 90, 79, 44.0f, 40.0f, -44.0f, -40.0f);
         mMyRenderer.getTexture(TEXNO_BULLET).readTexture(mMainActivity, "bullet.png", 26, 18, 13.0f, 8.0f, -13.0f, 8.0f);
+
+        // 各SE読み込み
+        mSePlayer.initialize(mMainActivity);
+        mSePlayer.load(mMainActivity, R.raw.cat_cry1);
+        mSePlayer.load(mMainActivity, R.raw.cat_cry2);
     }
 
     // 毎フレーム処理(FPS毎にMainThreadから呼ばれます)
@@ -71,7 +79,7 @@ public class Game {
 
         // UFOのフレーム処理
         for (int i = 0; i < 5; i++) {
-            mCAT[i].frameFunction();
+            mCat[i].frameFunction();
         }
 
         mFrameNo++;
@@ -87,7 +95,7 @@ public class Game {
 
         // ねこの描画
         for (int i = 0; i < 5; i++) {
-            mCAT[i].draw();
+            mCat[i].draw();
         }
     }
 }

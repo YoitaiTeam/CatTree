@@ -9,9 +9,9 @@ import javax.microedition.khronos.opengles.GL10;
 public class MainRenderer implements GLSurfaceView.Renderer {
     // 定義
     public static final int MAX_TEXTURE = 10;        // 最大テクスチャ数
-    public static final int MAX_SHADER = 1;        // 最大シェーダ数
+    public static final int MAX_SHADER = 1;          // 最大シェーダ数
 
-    public static final int SHADER_2D = 0;        // ２Ｄ用シェーダ
+    public static final int SHADER_2D = 0;           // ２Ｄ用シェーダ
 
     public static final int CONTENTS_W = 480;        // コンテンツの幅
     public static final int CONTENTS_H = 640;        // コンテンツの高さ

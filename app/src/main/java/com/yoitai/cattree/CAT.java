@@ -4,7 +4,7 @@ import com.yoitai.glib.Calc;
 import com.yoitai.glib.Vector2;
 
 // キャラクタ管理クラス
-public class CAT {
+public class Cat {
     // 状態
     public static final int STAT_WAITING = 0;
     public static final int STAT_PLAYING = 1;
@@ -27,7 +27,7 @@ public class CAT {
     int mPatternNo;    // パターン番号
 
     // コンストラクタ
-    public CAT() {
+    public Cat() {
         mStatus = STAT_WAITING;
         double init_x = Math.random() * MainRenderer.CONTENTS_W;
 //        double init_x = MainRenderer.CONTENTS_W / 4;
@@ -62,6 +62,8 @@ public class CAT {
                 if (mInput.checkStatus(Input.STATUS_DOWN) && touchTest()) {
                     // 画面がタッチされた：開始へ
                     mStatus = STAT_PLAYING;
+                    // タッチされたら鳴く
+                    mMainView.getmSePlayer().play();
                 }
             }
             break;
