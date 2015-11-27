@@ -1,6 +1,7 @@
 package com.yoitai.cattree;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 
@@ -11,6 +12,7 @@ public class MainView extends GLSurfaceView {
     MainActivity mMainActivity;
     MainThread mMainThread;
     SePlayer mSePlayer;
+    MediaPlayer mBgmPlayer;
     Input mInput;
     MainThreadCore mMainThreadCore;
 
@@ -29,6 +31,9 @@ public class MainView extends GLSurfaceView {
 
         // SEクラスのインスタンス化
         mSePlayer = new SePlayer();
+
+        // BGM用クラスのインスタンス化
+        mBgmPlayer = MediaPlayer.create(mMainActivity, R.raw.main_bgm);
 
         // 入力管理クラスのインスタンス化
         mInput = new Input();
@@ -126,6 +131,10 @@ public class MainView extends GLSurfaceView {
             mMainThread = new MainThread(mMainThreadCore);
             mMainThread.start();
         }
+
+        if (mBgmPlayer != null) {
+            mBgmPlayer.start();
+        }
     }
 
     @Override
@@ -141,5 +150,12 @@ public class MainView extends GLSurfaceView {
             }
             mMainThread = null;
         }
+
+        mBgmPlayer.stop();
+    }
+
+    public void release() {
+        mBgmPlayer.release();
+        mBgmPlayer = null;
     }
 }

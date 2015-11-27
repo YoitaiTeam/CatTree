@@ -1,5 +1,7 @@
 package com.yoitai.cattree;
 
+import android.media.MediaPlayer;
+
 // ゲームの制御
 public class Game {
     // テクスチャ番号
@@ -18,6 +20,7 @@ public class Game {
     MainActivity mMainActivity;
     MainRenderer mMyRenderer;
     SePlayer mSePlayer;
+    MediaPlayer mBgmPlayer;
 
     Input mInput;
 
@@ -40,6 +43,7 @@ public class Game {
         mMainActivity = _view.getMainActivity();
         mMyRenderer = _view.mMainRenderer;
         mSePlayer = _view.mSePlayer;
+        mBgmPlayer = _view.mBgmPlayer;
         mInput = _view.mInput;
 
         mStage.setView(_view);
@@ -69,6 +73,10 @@ public class Game {
         mSePlayer.initialize(mMainActivity);
         mSePlayer.load(mMainActivity, R.raw.cat_cry1);
         mSePlayer.load(mMainActivity, R.raw.cat_cry2);
+
+        // BGM設定
+        mBgmPlayer.setLooping(true);
+        mBgmPlayer.start();
     }
 
     // 毎フレーム処理(FPS毎にMainThreadから呼ばれます)
