@@ -29,7 +29,7 @@ public class Cat {
 
     // コンストラクタ
     public Cat() {
-        mStatus = STAT_WAITING;
+        mStatus = STAT_DEAD;
         double init_x = Math.random() * MainRenderer.CONTENTS_W;
 //        double init_x = MainRenderer.CONTENTS_W / 4;
         double init_y = Math.random() * MainRenderer.CONTENTS_H;
@@ -38,8 +38,6 @@ public class Cat {
         mSpeed = new Vector2(SPEED, 0.0f);
         mAccel = new Vector2(0.0f, 0.0f);
         mFrameNo = 0;
-        int[] pattern = {Game.TEXNO_CHAR0, Game.TEXNO_CHAR1, Game.TEXNO_CHAR2};
-        mPatternNo = pattern[this.pattern++ % 3];
     }
 
     // setter
@@ -116,12 +114,19 @@ public class Cat {
         }
     }
 
+    public boolean growUp(int _texno) {
+        if (mStatus != STAT_DEAD) return false;
+        mPatternNo = _texno;
+        mStatus = STAT_WAITING;
+        return true;
+    }
+
     // ゲームリセット
     void reset() {
         double init_x = Math.random() * MainRenderer.CONTENTS_W;
         double init_y = Math.random() * MainRenderer.CONTENTS_H;
 
-        mStatus = STAT_WAITING;
+//        mStatus = STAT_WAITING;
         mPos.Set((float) init_x, (float) init_y);
         mSpeed.Set(SPEED, 0.0f);
         mAccel.Set(0.0f, 0.0f);

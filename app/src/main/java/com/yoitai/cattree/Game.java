@@ -4,14 +4,35 @@ import android.media.MediaPlayer;
 
 // ゲームの制御
 public class Game {
+    // ゲーム設定
+    public static final int CAT_KIND_NUM = 20;
+
     // テクスチャ番号
     public static final int TEXNO_BACK = 0;         // 背景
     public static final int TEXNO_CATTREE = 1;      // ねこのなる木
     public static final int TEXNO_TBLOCK = 2;       // 障害物上
     public static final int TEXNO_BBLOCK = 3;       // 障害物下
-    public static final int TEXNO_CHAR0 = 4;        // キャラクタ0
-    public static final int TEXNO_CHAR1 = 5;        // キャラクタ1
-    public static final int TEXNO_CHAR2 = 6;        // キャラクタ2
+    public static final int TEXNO_BASE_CAT = 100;   // 猫TEXTNOのベース
+    public static final int TEXNO_CAT0 = 101;       // TODO:猫の名前書きます
+    public static final int TEXNO_CAT1 = 102;       // TODO:猫の名前書きます
+    public static final int TEXNO_CAT2 = 103;       // TODO:猫の名前書きます
+    public static final int TEXNO_CAT3 = 104;       // TODO:猫の名前書きます
+    public static final int TEXNO_CAT4 = 105;       // TODO:猫の名前書きます
+    public static final int TEXNO_CAT5 = 106;       // TODO:猫の名前書きます
+    public static final int TEXNO_CAT6 = 107;       // TODO:猫の名前書きます
+    public static final int TEXNO_CAT7 = 108;       // TODO:猫の名前書きます
+    public static final int TEXNO_CAT8 = 109;       // TODO:猫の名前書きます
+    public static final int TEXNO_CAT9 = 110;       // TODO:猫の名前書きます
+    public static final int TEXNO_CAT10 = 111;      // TODO:猫の名前書きます
+    public static final int TEXNO_CAT11 = 112;      // TODO:猫の名前書きます
+    public static final int TEXNO_CAT12 = 113;      // TODO:猫の名前書きます
+    public static final int TEXNO_CAT13 = 114;      // TODO:猫の名前書きます
+    public static final int TEXNO_CAT14 = 115;      // TODO:猫の名前書きます
+    public static final int TEXNO_RARE_CAT1 = 116;  // TODO:猫の名前書きます
+    public static final int TEXNO_RARE_CAT2 = 117;  // TODO:猫の名前書きます
+    public static final int TEXNO_RARE_CAT3 = 118;  // TODO:猫の名前書きます
+    public static final int TEXNO_RARE_CAT4 = 119;  // TODO:猫の名前書きます
+    public static final int TEXNO_RARE_CAT5 = 120;  // TODO:猫の名前書きます
     public static final int TEXNO_ENEMY0 = 7;       // 敵キャラクタ0
     public static final int TEXNO_ENEMY1 = 8;       // 敵キャラクタ1
     public static final int TEXNO_BULLET = 9;       // 弾
@@ -27,15 +48,12 @@ public class Game {
     // 内容が変化するゲーム情報
     long mFrameNo;
     Stage mStage;
-    Cat[] mCat;
+    CatTree mCatTree;
 
     // コンストラクタ
     public Game() {
         mStage = new Stage();
-        mCat = new Cat[5];
-        for (int i = 0; i < 5; i++) {
-            mCat[i] = new Cat();
-        }
+        mCatTree = new CatTree();
     }
 
     // viewの設定
@@ -48,11 +66,9 @@ public class Game {
 
         mStage.setView(_view);
 
-        for (int i = 0; i < 5; i++) {
-            mCat[i].setView(_view);
-            mCat[i].setInput(mInput);
-            mCat[i].setStage(mStage);
-        }
+        mCatTree.setView(_view);
+        mCatTree.setInput(mInput);
+        mCatTree.setStage(mStage);
     }
 
     // ゲーム初期化処理(MyRendererからonSurfaceCreated時に実行されます)
@@ -62,9 +78,26 @@ public class Game {
         mMyRenderer.getTexture(TEXNO_CATTREE).readTexture(mMainActivity, "tree.png", 512, 512, 256.0f, 256.0f, 0.0f, 0.0f);
         mMyRenderer.getTexture(TEXNO_TBLOCK).readTexture(mMainActivity, "tpole.png", 109, 512, 0.0f, 498.0f, 0.0f, -498.0f);
         mMyRenderer.getTexture(TEXNO_BBLOCK).readTexture(mMainActivity, "bpole.png", 109, 512, 0.0f, 16.0f, 0.0f, -16.0f);
-        mMyRenderer.getTexture(TEXNO_CHAR0).readTexture(mMainActivity, "cat.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
-        mMyRenderer.getTexture(TEXNO_CHAR1).readTexture(mMainActivity, "cat2.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
-        mMyRenderer.getTexture(TEXNO_CHAR2).readTexture(mMainActivity, "cat3.png", 72, 128, 36.0f, 0.0f, -36.0f, 0.0f);
+        mMyRenderer.getTexture(TEXNO_CAT0).readTexture(mMainActivity, "cat.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
+        mMyRenderer.getTexture(TEXNO_CAT1).readTexture(mMainActivity, "cat2.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
+        mMyRenderer.getTexture(TEXNO_CAT2).readTexture(mMainActivity, "cat3.png", 72, 128, 36.0f, 0.0f, -36.0f, 0.0f);
+        mMyRenderer.getTexture(TEXNO_CAT3).readTexture(mMainActivity, "cat.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
+        mMyRenderer.getTexture(TEXNO_CAT4).readTexture(mMainActivity, "cat2.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
+        mMyRenderer.getTexture(TEXNO_CAT5).readTexture(mMainActivity, "cat3.png", 72, 128, 36.0f, 0.0f, -36.0f, 0.0f);
+        mMyRenderer.getTexture(TEXNO_CAT6).readTexture(mMainActivity, "cat.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
+        mMyRenderer.getTexture(TEXNO_CAT7).readTexture(mMainActivity, "cat2.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
+        mMyRenderer.getTexture(TEXNO_CAT8).readTexture(mMainActivity, "cat3.png", 72, 128, 36.0f, 0.0f, -36.0f, 0.0f);
+        mMyRenderer.getTexture(TEXNO_CAT9).readTexture(mMainActivity, "cat.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
+        mMyRenderer.getTexture(TEXNO_CAT10).readTexture(mMainActivity, "cat2.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
+        mMyRenderer.getTexture(TEXNO_CAT11).readTexture(mMainActivity, "cat3.png", 72, 128, 36.0f, 0.0f, -36.0f, 0.0f);
+        mMyRenderer.getTexture(TEXNO_CAT12).readTexture(mMainActivity, "cat.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
+        mMyRenderer.getTexture(TEXNO_CAT13).readTexture(mMainActivity, "cat2.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
+        mMyRenderer.getTexture(TEXNO_CAT14).readTexture(mMainActivity, "cat3.png", 72, 128, 36.0f, 0.0f, -36.0f, 0.0f);
+        mMyRenderer.getTexture(TEXNO_RARE_CAT1).readTexture(mMainActivity, "cat.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
+        mMyRenderer.getTexture(TEXNO_RARE_CAT2).readTexture(mMainActivity, "cat2.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
+        mMyRenderer.getTexture(TEXNO_RARE_CAT3).readTexture(mMainActivity, "cat3.png", 72, 128, 36.0f, 0.0f, -36.0f, 0.0f);
+        mMyRenderer.getTexture(TEXNO_RARE_CAT4).readTexture(mMainActivity, "cat.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
+        mMyRenderer.getTexture(TEXNO_RARE_CAT5).readTexture(mMainActivity, "cat2.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
         mMyRenderer.getTexture(TEXNO_ENEMY0).readTexture(mMainActivity, "bird1.png", 86, 79, 44.0f, 40.0f, -44.0f, -40.0f);
         mMyRenderer.getTexture(TEXNO_ENEMY1).readTexture(mMainActivity, "bird2.png", 90, 79, 44.0f, 40.0f, -44.0f, -40.0f);
         mMyRenderer.getTexture(TEXNO_BULLET).readTexture(mMainActivity, "bullet.png", 26, 18, 13.0f, 8.0f, -13.0f, 8.0f);
@@ -85,10 +118,8 @@ public class Game {
         // ステージフレーム処理
         mStage.frameFunction();
 
-        // UFOのフレーム処理
-        for (int i = 0; i < 5; i++) {
-            mCat[i].frameFunction();
-        }
+        // 猫のなる木のフレーム処理
+        mCatTree.frameFunction();
 
         mFrameNo++;
 
@@ -101,9 +132,7 @@ public class Game {
         // ステージ描画
         mStage.draw(0);
 
-        // ねこの描画
-        for (int i = 0; i < 5; i++) {
-            mCat[i].draw();
-        }
+        // ねこのなる木描画
+        mCatTree.draw();
     }
 }

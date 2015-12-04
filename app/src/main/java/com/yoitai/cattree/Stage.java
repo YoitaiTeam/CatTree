@@ -3,12 +3,12 @@ package com.yoitai.cattree;
 // ステージ管理クラス
 public class Stage {
     public class BlockParams {
-        public static final int TYPE_TOP = 0;    // 上障害物
+        public static final int TYPE_TOP = 0;       // 上障害物
         public static final int TYPE_BOTTOM = 1;    // 下障害物
 
-        public int mType;                // ブロックのタイプ (TYPE_xxxx)
-        public float mPosX;            // ステージ上のＸ座標
-        public float mPosY;            // ステージ上のＹ座標
+        public int mType;                           // ブロックのタイプ (TYPE_xxxx)
+        public float mPosX;                         // ステージ上のＸ座標
+        public float mPosY;                         // ステージ上のＹ座標
 
         public BlockParams(int _type, float _x, float _y) {
             mType = _type;
