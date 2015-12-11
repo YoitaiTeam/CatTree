@@ -58,6 +58,8 @@ public class Game {
     public Game() {
         mStage = new Stage();
         mCatTree = new CatTree();
+        mMenu = new Menu();
+
     }
 
     // viewの設定
@@ -69,6 +71,9 @@ public class Game {
         mInput = _view.mInput;
 
         mStage.setView(_view);
+
+        mMenu.setView(_view);
+        mMenu.setInput(mInput);
 
         mCatTree.setView(_view);
         mCatTree.setInput(mInput);
@@ -143,5 +148,8 @@ public class Game {
 
         // ねこのなる木描画
         mCatTree.draw();
+
+        // メニュー描画
+        mMenu.draw();
     }
 }
