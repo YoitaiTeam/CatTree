@@ -151,7 +151,6 @@ public class Menu {
             mInput.mMenuStatus = Input.MENU_OPEN;
         }else{
             mInput.mMenuStatus = Input.MENU_CLOSE;
-
         }
     }
 

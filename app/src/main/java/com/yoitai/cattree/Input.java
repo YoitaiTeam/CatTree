@@ -7,8 +7,8 @@ public class Input {
 	public static final int STATUS_DOWN    = 0x00000001;				// 押されている状態
 	public static final int STATUS_UP      = 0x00000002;				// 離された瞬間
 	public static final int STATUS_PUSH    = 0x00000004;				// 押された瞬間
-    public static final int MENU_OPEN      = 1;
-    public static final int MENU_CLOSE     = 0;
+        public static final int MENU_OPEN      = 1;
+        public static final int MENU_CLOSE     = 0;
 
     // メンバー
 	int mCurPosX;				// 現在の状態(MotionEventからの入力)
@@ -17,7 +17,6 @@ public class Input {
 	int mPosX;					// フレーム処理で使う状態(1/60毎に確定)
 	int mPosY;
 	int mStatus;
-	int mMenuStatus;
 	int mScreenW;				// スクリーンサイズ
 	int mScreenH;
 	int mContentX;			// 内容物範囲
@@ -43,7 +42,6 @@ public class Input {
 		mPosX = 0;
 		mPosY = 0;
 		mStatus = 0;
-		mMenuStatus = 0;
 		mScreenW = _sw;
 		mScreenH = _sh;
 		mContentX = _cx;
