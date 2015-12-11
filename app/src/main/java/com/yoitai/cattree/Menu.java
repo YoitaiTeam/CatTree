@@ -148,9 +148,7 @@ public class Menu {
             params.setSprite(Game.BTN_CLOSE01);
             params.getPos().X = mPos.X;
             params.getPos().Y = mPos.Y;
-            mInput.mMenuStatus = 1;
         }else{
-            mInput.mMenuStatus = 0;
 
         }
     }
