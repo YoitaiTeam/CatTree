@@ -13,8 +13,9 @@ public class Game {
     public static final int TEXNO_ENEMY0 = 7;        // 敵キャラクタ0
     public static final int TEXNO_ENEMY1 = 8;        // 敵キャラクタ1
     public static final int TEXNO_BULLET = 9;        // 弾
-    public static final int ALBUM01 = 10;        // アルバム
+    public static final int ALBUM01 = 10;        // アルバム1
     public static final int BTN_CLOSE01 = 11;
+    public static final int ALBUM02 = 12;        // アルバム2
 
     // メンバー変数
     MainActivity mMainActivity;
@@ -70,6 +71,7 @@ public class Game {
         mMyRenderer.getTexture(TEXNO_BULLET).readTexture(mMainActivity, "bullet.png", 26, 18, 13.0f, 8.0f, -13.0f, 8.0f);
         mMyRenderer.getTexture(ALBUM01).readTexture(mMainActivity, "album.png", 500, 300, 0.0f, 0.0f, -60.0f, -100.0f);
         mMyRenderer.getTexture(BTN_CLOSE01).readTexture(mMainActivity, "x.png", 60, 60, 0.0f, 0.0f, 280.0f, -120.0f);
+        mMyRenderer.getTexture(ALBUM02).readTexture(mMainActivity, "album2.png", 500, 300, 0.0f, 0.0f, -60.0f, -100.0f);
     }
 
     // 毎フレーム処理(FPS毎にMainThreadから呼ばれます)

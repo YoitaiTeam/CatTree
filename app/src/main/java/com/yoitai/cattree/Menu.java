@@ -68,6 +68,14 @@ public class Menu {
 
                     // 画面がタッチされた：開始へ
                     mStatus = DISP_OPEN;
+                    mPatternNo = Game.ALBUM01;
+                }
+                if (touchOpenB()) {
+                    //mInput.checkStatus(Input.STATUS_DOWN) &&
+
+                    // 画面がタッチされた：開始へ
+                    mStatus = DISP_OPEN;
+                    mPatternNo = Game.ALBUM02;
                 }
             }
             break;
@@ -108,6 +116,15 @@ public class Menu {
         return false;
     }
 
+    public boolean touchOpenB() {
+        float x = mInput.getX();
+        float y = mInput.getY();
+        Log.i("MSG", mInput.getX() + " " + mInput.getY() +" "+Math.abs(y));
+
+        if (x > 130 && x < 190 && Math.abs(y) < 64) return true;
+        return false;
+    }
+
     public boolean touchCloseA() {
         float x = mInput.getX();
         float y = mInput.getY();
@@ -122,6 +139,7 @@ public class Menu {
         DrawParams params;
 
         if (mStatus == DISP_OPEN) {
+
             params = mMainView.getMainRenderer().allocDrawParams();
             params.setSprite(mPatternNo);
             params.getPos().X = mPos.X;
