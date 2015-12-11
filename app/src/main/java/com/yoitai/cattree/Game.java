@@ -2,6 +2,8 @@ package com.yoitai.cattree;
 
 import android.media.MediaPlayer;
 
+import com.yoitai.cattree.object.WateringPot;
+
 // ゲームの制御
 public class Game {
     // ゲーム設定
@@ -36,6 +38,8 @@ public class Game {
     public static final int TEXNO_ENEMY0 = 7;       // 敵キャラクタ0
     public static final int TEXNO_ENEMY1 = 8;       // 敵キャラクタ1
     public static final int TEXNO_BULLET = 9;       // 弾
+    public static final int TEXNO_WARTERING_POT = 10;       // じょうろ
+    public static final int TEXNO_WARTERING_POT_FRAME = 11; // じょうろ
 
     // メンバー変数
     MainActivity mMainActivity;
@@ -49,11 +53,16 @@ public class Game {
     long mFrameNo;
     Stage mStage;
     CatTree mCatTree;
+    WateringPot[] mWateringPot = new WateringPot[2];
 
     // コンストラクタ
     public Game() {
         mStage = new Stage();
         mCatTree = new CatTree();
+        mWateringPot[0] = new WateringPot();
+        mWateringPot[0].setPatternNo(Game.TEXNO_WARTERING_POT_FRAME);
+        mWateringPot[1] = new WateringPot();
+        mWateringPot[1].setPatternNo(Game.TEXNO_WARTERING_POT);
     }
 
     // viewの設定
@@ -69,6 +78,11 @@ public class Game {
         mCatTree.setView(_view);
         mCatTree.setInput(mInput);
         mCatTree.setStage(mStage);
+
+        mWateringPot[0].setView(_view);
+        mWateringPot[0].setInput(mInput);
+        mWateringPot[1].setView(_view);
+        mWateringPot[1].setInput(mInput);
     }
 
     // ゲーム初期化処理(MyRendererからonSurfaceCreated時に実行されます)
@@ -101,6 +115,8 @@ public class Game {
         mMyRenderer.getTexture(TEXNO_ENEMY0).readTexture(mMainActivity, "bird1.png", 86, 79, 44.0f, 40.0f, -44.0f, -40.0f);
         mMyRenderer.getTexture(TEXNO_ENEMY1).readTexture(mMainActivity, "bird2.png", 90, 79, 44.0f, 40.0f, -44.0f, -40.0f);
         mMyRenderer.getTexture(TEXNO_BULLET).readTexture(mMainActivity, "bullet.png", 26, 18, 13.0f, 8.0f, -13.0f, 8.0f);
+        mMyRenderer.getTexture(TEXNO_WARTERING_POT).readTexture(mMainActivity, "watering_pot.png", 256, 230, 0.0f, 26.0f, 0.0f, -26.0f);
+        mMyRenderer.getTexture(TEXNO_WARTERING_POT_FRAME).readTexture(mMainActivity, "watering_pot_frame.png", 256, 230, 0.0f, 26.0f, 0.0f, -26.0f);
 
         // 各SE読み込み
         mSePlayer.initialize(mMainActivity);
@@ -110,6 +126,9 @@ public class Game {
         // BGM設定
         mBgmPlayer.setLooping(true);
         mBgmPlayer.start();
+
+        // データベース初期化
+        CatTreeData.init(mMainActivity);
     }
 
     // 毎フレーム処理(FPS毎にMainThreadから呼ばれます)
@@ -120,6 +139,10 @@ public class Game {
 
         // 猫のなる木のフレーム処理
         mCatTree.frameFunction();
+
+        // じょうろ描画
+        mWateringPot[0].frameFunction();
+        mWateringPot[1].frameFunction();
 
         mFrameNo++;
 
@@ -134,5 +157,9 @@ public class Game {
 
         // ねこのなる木描画
         mCatTree.draw();
+
+        // じょうろ描画
+        mWateringPot[0].draw();
+        mWateringPot[1].draw();
     }
 }
