@@ -4,7 +4,7 @@ import com.yoitai.glib.Calc;
 import com.yoitai.glib.Vector2;
 
 // キャラクタ管理クラス
-public class CAT {
+public class Cat {
     // 状態
     public static final int STAT_WAITING = 0;
     public static final int STAT_PLAYING = 1;
@@ -25,10 +25,11 @@ public class CAT {
     Stage mStage;       // ステージ
     int mFrameNo;       // フレーム番号
     int mPatternNo;    // パターン番号
+    static int pattern = 0; // TODO 一時的なものちゃんと実装します
 
     // コンストラクタ
-    public CAT() {
-        mStatus = STAT_WAITING;
+    public Cat() {
+        mStatus = STAT_DEAD;
         double init_x = Math.random() * MainRenderer.CONTENTS_W;
 //        double init_x = MainRenderer.CONTENTS_W / 4;
         double init_y = Math.random() * MainRenderer.CONTENTS_H;
@@ -37,7 +38,6 @@ public class CAT {
         mSpeed = new Vector2(SPEED, 0.0f);
         mAccel = new Vector2(0.0f, 0.0f);
         mFrameNo = 0;
-        mPatternNo = 0;
     }
 
     // setter
@@ -58,10 +58,11 @@ public class CAT {
         switch (mStatus) {
             case STAT_WAITING: {
                 // 待ち状態
-                mPatternNo = Game.TEXNO_CHAR0;
                 if (mInput.checkStatus(Input.STATUS_DOWN) && touchTest()) {
                     // 画面がタッチされた：開始へ
                     mStatus = STAT_PLAYING;
+                    // タッチされたら鳴く
+                    mMainView.getmSePlayer().play();
                 }
             }
             break;
@@ -89,7 +90,7 @@ public class CAT {
             break;
             case STAT_DEAD: {
                 // 死亡：初期化
-                mPatternNo = Game.TEXNO_CHAR0;
+//                mPatternNo = Game.TEXNO_CHAR0;
                 reset();
             }
             break;
@@ -107,10 +108,17 @@ public class CAT {
             params.setSprite(mPatternNo);
             params.getPos().X = mPos.X;
             params.getPos().Y = mPos.Y;
-            params.getScl().X = 0.5f;
-            params.getScl().Y = 0.5f;
+            params.getScl().X = 1.0f;
+            params.getScl().Y = 1.0f;
             params.setRot(Calc.CalcAngleRad(mSpeed.X, mSpeed.Y / 8, false));
         }
+    }
+
+    public boolean growUp(int _texno) {
+        if (mStatus != STAT_DEAD) return false;
+        mPatternNo = _texno;
+        mStatus = STAT_WAITING;
+        return true;
     }
 
     // ゲームリセット
@@ -118,7 +126,7 @@ public class CAT {
         double init_x = Math.random() * MainRenderer.CONTENTS_W;
         double init_y = Math.random() * MainRenderer.CONTENTS_H;
 
-        mStatus = STAT_WAITING;
+//        mStatus = STAT_WAITING;
         mPos.Set((float) init_x, (float) init_y);
         mSpeed.Set(SPEED, 0.0f);
         mAccel.Set(0.0f, 0.0f);
