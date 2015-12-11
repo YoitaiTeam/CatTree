@@ -15,6 +15,7 @@ public class Input {
 	int mPosX;					// フレーム処理で使う状態(1/60毎に確定)
 	int mPosY;
 	int mStatus;
+	int mMenuStatus;
 	int mScreenW;				// スクリーンサイズ
 	int mScreenH;
 	int mContentX;			// 内容物範囲
@@ -40,6 +41,7 @@ public class Input {
 		mPosX = 0;
 		mPosY = 0;
 		mStatus = 0;
+		mMenuStatus = 0;
 		mScreenW = _sw;
 		mScreenH = _sh;
 		mContentX = _cx;
@@ -98,6 +100,9 @@ public class Input {
 	// 状態チェック
 	public boolean checkStatus(int _status)
 	{
+		if( mMenuStatus == _status ) {
+			return false;
+		}
 		if( (mStatus & _status) == _status )return(true);
 		return(false);
 	}

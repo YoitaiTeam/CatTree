@@ -110,9 +110,9 @@ public class Game {
         mMyRenderer.getTexture(TEXNO_ENEMY0).readTexture(mMainActivity, "bird1.png", 86, 79, 44.0f, 40.0f, -44.0f, -40.0f);
         mMyRenderer.getTexture(TEXNO_ENEMY1).readTexture(mMainActivity, "bird2.png", 90, 79, 44.0f, 40.0f, -44.0f, -40.0f);
         mMyRenderer.getTexture(TEXNO_BULLET).readTexture(mMainActivity, "bullet.png", 26, 18, 13.0f, 8.0f, -13.0f, 8.0f);
-        mMyRenderer.getTexture(ALBUM01).readTexture(mMainActivity, "album.png", 500, 300, 0.0f, 0.0f, -60.0f, -100.0f);
+        mMyRenderer.getTexture(ALBUM01).readTexture(mMainActivity, "album.png", 400, 200, 0.0f, 0.0f, -60.0f, -100.0f);
         mMyRenderer.getTexture(BTN_CLOSE01).readTexture(mMainActivity, "x.png", 60, 60, 0.0f, 0.0f, 280.0f, -120.0f);
-        mMyRenderer.getTexture(ALBUM02).readTexture(mMainActivity, "album2.png", 500, 300, 0.0f, 0.0f, -60.0f, -100.0f);
+        mMyRenderer.getTexture(ALBUM02).readTexture(mMainActivity, "album2.png", 400, 200, 0.0f, 0.0f, -60.0f, -100.0f);
 
         // 各SE読み込み
         mSePlayer.initialize(mMainActivity);
