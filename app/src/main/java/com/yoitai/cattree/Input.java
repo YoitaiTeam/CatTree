@@ -7,8 +7,10 @@ public class Input {
 	public static final int STATUS_DOWN    = 0x00000001;				// 押されている状態
 	public static final int STATUS_UP      = 0x00000002;				// 離された瞬間
 	public static final int STATUS_PUSH    = 0x00000004;				// 押された瞬間
+    public static final int MENU_OPEN      = 1;
+    public static final int MENU_CLOSE     = 0;
 
-	// メンバー
+    // メンバー
 	int mCurPosX;				// 現在の状態(MotionEventからの入力)
 	int mCurPosY;
 	int mCurStatus;
@@ -100,7 +102,8 @@ public class Input {
 	// 状態チェック
 	public boolean checkStatus(int _status)
 	{
-		if( mMenuStatus == _status ) {
+        // メニューが開いている時はそれ以外を触らせない
+		if( mMenuStatus == MENU_OPEN ) {
 			return false;
 		}
 		if( (mStatus & _status) == _status )return(true);
