@@ -65,7 +65,7 @@ public class Cat {
                     // 画面がタッチされた：開始へ
                     mStatus = STAT_PLAYING;
                     // タッチされたら鳴く
-                    mMainView.getmSePlayer().play();
+                    mMainView.getSePlayer().play();
                     // ポイントも付与する
                     addPoint();
                 }

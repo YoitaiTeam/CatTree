@@ -40,6 +40,7 @@ public class Game {
     public static final int TEXNO_BULLET = 9;       // 弾
     public static final int TEXNO_WARTERING_POT = 10;       // じょうろ
     public static final int TEXNO_WARTERING_POT_FRAME = 11; // じょうろ
+    public static final int TEXNO_SHOP = 12;        // じょうろ
 
     // メンバー変数
     MainActivity mMainActivity;
@@ -53,12 +54,14 @@ public class Game {
     long mFrameNo;
     Stage mStage;
     CatTree mCatTree;
+    Shop mShop;
     WateringPot[] mWateringPot = new WateringPot[2];
 
     // コンストラクタ
     public Game() {
         mStage = new Stage();
         mCatTree = new CatTree();
+        mShop = new Shop();
         mWateringPot[0] = new WateringPot();
         mWateringPot[0].setPatternNo(Game.TEXNO_WARTERING_POT_FRAME);
         mWateringPot[1] = new WateringPot();
@@ -78,6 +81,9 @@ public class Game {
         mCatTree.setView(_view);
         mCatTree.setInput(mInput);
         mCatTree.setStage(mStage);
+
+        mShop.setView(_view);
+        mShop.setInput(mInput);
 
         mWateringPot[0].setView(_view);
         mWateringPot[0].setInput(mInput);
@@ -117,11 +123,14 @@ public class Game {
         mMyRenderer.getTexture(TEXNO_BULLET).readTexture(mMainActivity, "bullet.png", 26, 18, 13.0f, 8.0f, -13.0f, 8.0f);
         mMyRenderer.getTexture(TEXNO_WARTERING_POT).readTexture(mMainActivity, "watering_pot.png", 256, 230, 0.0f, 26.0f, 0.0f, -26.0f);
         mMyRenderer.getTexture(TEXNO_WARTERING_POT_FRAME).readTexture(mMainActivity, "watering_pot_frame.png", 256, 230, 0.0f, 26.0f, 0.0f, -26.0f);
+        mMyRenderer.getTexture(TEXNO_SHOP).readTexture(mMainActivity, "shop.png", 128, 128, 0.0f, 0.0f, 0.0f, 0.0f);
 
         // 各SE読み込み
         mSePlayer.initialize(mMainActivity);
         mSePlayer.load(mMainActivity, R.raw.cat_cry1);
         mSePlayer.load(mMainActivity, R.raw.cat_cry2);
+        mSePlayer.load(mMainActivity, R.raw.open);
+        mSePlayer.load(mMainActivity, R.raw.close);
 
         // BGM設定
         mBgmPlayer.setLooping(true);
@@ -140,6 +149,9 @@ public class Game {
         // 猫のなる木のフレーム処理
         mCatTree.frameFunction();
 
+        // お店のフレーム処理
+        mShop.frameFunction();
+
         // じょうろ描画
         mWateringPot[0].frameFunction();
         mWateringPot[1].frameFunction();
@@ -157,6 +169,9 @@ public class Game {
 
         // ねこのなる木描画
         mCatTree.draw();
+
+        // お店描画
+        mShop.draw();
 
         // じょうろ描画
         mWateringPot[0].draw();
