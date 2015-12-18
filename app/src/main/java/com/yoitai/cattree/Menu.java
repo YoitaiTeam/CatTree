@@ -19,8 +19,8 @@ public class Menu {
     public static final float ACCEL = 0.02f;        // 重力加速度
     public static final float PUSH_SPEED_Y = -5.0f;    // プッシュ時のスピード
 
-    public static final int MENU_OPEN      = 1;
-    public static final int MENU_CLOSE     = 0;
+    public static final int MENU_OPEN = 1;
+    public static final int MENU_CLOSE = 0;
 
     // メンバ変数
     int mStatus;        // 状態
@@ -134,16 +134,14 @@ public class Menu {
     }
 
     // 状態チェック
-    public boolean menuStatus(int _status)
-    {
+    public boolean menuStatus() {
         // メニューを閉じている時
-        if(mStatus == MENU_CLOSE )
-        {
-            return mInput.checkStatus(_status);
+        if (mStatus == MENU_CLOSE) {
+            return (true);
         } else {
-            if(touchCloseMenu()){
+            if (touchCloseMenu()) {
                 //メニュー閉じるボタンのみ
-                return(true);
+                return (true);
             }
         }
         return false;
@@ -164,7 +162,7 @@ public class Menu {
             params.getPos().X = mPos.X;
             params.getPos().Y = mPos.Y;
             mInput.mMenuStatus = MENU_OPEN;
-        }else{
+        } else {
             mInput.mMenuStatus = MENU_CLOSE;
         }
     }
