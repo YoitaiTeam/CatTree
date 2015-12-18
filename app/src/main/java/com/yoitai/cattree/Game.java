@@ -131,6 +131,7 @@ public class Game {
         mSePlayer.load(mMainActivity, R.raw.cat_cry2);
         mSePlayer.load(mMainActivity, R.raw.open);
         mSePlayer.load(mMainActivity, R.raw.close);
+        mSePlayer.load(mMainActivity, R.raw.pour);
 
         // BGM設定
         mBgmPlayer.setLooping(true);
