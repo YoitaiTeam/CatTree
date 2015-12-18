@@ -46,7 +46,6 @@ public class Game {
     SePlayer mSePlayer;
     MediaPlayer mBgmPlayer;
     Menu mMenu;
-
     Input mInput;
 
     // 内容が変化するゲーム情報
@@ -78,6 +77,7 @@ public class Game {
         mCatTree.setView(_view);
         mCatTree.setInput(mInput);
         mCatTree.setStage(mStage);
+        mCatTree.setMenu(mMenu);
     }
 
     // ゲーム初期化処理(MyRendererからonSurfaceCreated時に実行されます)

@@ -23,6 +23,7 @@ public class Cat {
     MainView mMainView; // MainView
     Input mInput;       // 入力
     Stage mStage;       // ステージ
+    Menu mMenu;         // メニュー
     int mFrameNo;       // フレーム番号
     int mPatternNo;    // パターン番号
     static int pattern = 0; // TODO 一時的なものちゃんと実装します
@@ -53,12 +54,16 @@ public class Cat {
         mStage = _stage;
     }
 
+    public void setMenu(Menu _menu) {
+        mMenu = _menu;
+    }
+
     // 毎フレーム処理
     public void frameFunction() {
         switch (mStatus) {
             case STAT_WAITING: {
                 // 待ち状態
-                if (mInput.checkStatus(Input.STATUS_DOWN) && touchTest()) {
+                if (mMenu.menuStatus(Input.STATUS_DOWN) && touchTest()) {
                     // 画面がタッチされた：開始へ
                     mStatus = STAT_PLAYING;
                     // タッチされたら鳴く
@@ -67,13 +72,6 @@ public class Cat {
             }
             break;
             case STAT_PLAYING: {
-
-                // プレイ中
-//                if (mInput.checkStatus(Input.STATUS_PUSH)) {
-//                    // 画面をプッシュされた
-//                    mSpeed.Y = PUSH_SPEED_Y;
-//                    mAccel.Y = 0.0f;
-//                }
 
                 mPos.Add(mSpeed);
                 if (mStage.hitTest(mPos.X, mPos.Y, 32.0f, 32.0f)) {

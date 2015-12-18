@@ -12,6 +12,7 @@ public class CatTree {
     MainView mMainView; // MainView
     Input mInput;       // 入力
     Stage mStage;       // ステージ
+    Menu mMenu;
 
     private final int CAT_MAX = 20;  // 画面に表示する猫の最大数
     private final int CAT_GROW_INTERVAL = 5;
@@ -52,6 +53,13 @@ public class CatTree {
         mStage = _stage;
         for (int i = 0; i < CAT_MAX; i++) {
             mCat[i].setStage(mStage);
+        }
+    }
+
+    public void setMenu(Menu _menu) {
+        mMenu = _menu;
+        for (int i = 0; i < CAT_MAX; i++) {
+            mCat[i].setMenu(mMenu);
         }
     }
 
