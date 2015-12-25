@@ -37,7 +37,7 @@ public class Cat {
         double init_y = Math.random() * MainRenderer.CONTENTS_H;
 //        double init_y = MainRenderer.CONTENTS_H / 2;
         mPos = new Vector2((float) init_x, (float) init_y);
-        mSpeed = new Vector2(SPEED, 0.0f);
+        mSpeed = new Vector2((float) Math.random() * 10 * (Math.random() * 10 < 5 ? 1 : -1), 0.0f);
         mAccel = new Vector2(0.0f, 0.0f);
         mFrameNo = 0;
     }
@@ -108,17 +108,30 @@ public class Cat {
     public void draw() {
         DrawParams params;
 
-        if (mStatus != STAT_DEAD) {
-            params = mMainView.getMainRenderer().allocDrawParams();
-            params.setSprite(mPatternNo);
-            params.getPos().X = mPos.X;
-            params.getPos().Y = mPos.Y;
-            params.getScl().X = 1.0f;
-            params.getScl().Y = 1.0f;
-            params.getOfs().X = 100.0f;
-            params.getOfs().Y = 100.0f;
-            params.setRot(Calc.CalcAngleRad(mSpeed.X, mSpeed.Y / 8, false));
-        }
+        if (mStatus == STAT_DEAD) return;
+        // ねこ
+        params = mMainView.getMainRenderer().allocDrawParams();
+        params.setSprite(mPatternNo);
+        params.getPos().X = mPos.X;
+        params.getPos().Y = mPos.Y;
+        params.getScl().X = 0.5f;
+        params.getScl().Y = 0.5f;
+        params.getOfs().X = 100.0f;
+        params.getOfs().Y = 100.0f;
+//        params.setRot(Calc.CalcAngleRad(mSpeed.X, mSpeed.Y / 8, false));
+
+        if (mStatus == STAT_PLAYING) return;
+        // くさ
+        params = mMainView.getMainRenderer().allocDrawParams();
+        params.setSprite(Game.TEXNO_LEAF);
+        params.getPos().X = mPos.X;
+        params.getPos().Y = mPos.Y + 40;
+        params.getScl().X = 0.5f;
+        params.getScl().Y = 0.5f;
+        params.getOfs().X = 100.0f;
+        params.getOfs().Y = 100.0f;
+        params.setRot(Calc.CalcAngleRad(mSpeed.X, mSpeed.Y / 8, false));
+
     }
 
     public boolean growUp(int _texno) {
