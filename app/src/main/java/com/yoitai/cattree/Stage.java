@@ -45,8 +45,8 @@ public class Stage {
         // 背景描画
         params = mMainView.getMainRenderer().allocDrawParams();
         params.setSprite(Game.TEXNO_BACK);
-        params.getScl().X = 1.5f;
-        params.getScl().Y = 1.5f;
+        params.getScl().X = 0.5f;
+        params.getScl().Y = 0.5f;
 
         // CATTREE描画
         params = mMainView.getMainRenderer().allocDrawParams();

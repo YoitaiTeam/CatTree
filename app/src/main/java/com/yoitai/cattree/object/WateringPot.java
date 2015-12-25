@@ -5,6 +5,7 @@ import com.yoitai.cattree.Game;
 import com.yoitai.cattree.Input;
 import com.yoitai.cattree.MainRenderer;
 import com.yoitai.cattree.MainView;
+import com.yoitai.cattree.R;
 import com.yoitai.glib.Vector2;
 
 /**
@@ -51,6 +52,7 @@ public class WateringPot {
                 if (mInput.checkStatus(Input.STATUS_DOWN) && touchTest()) {
                     // 画面がタッチされた：水を補充する
                     mStatus = STAT_FILL;
+                    mMainView.getSePlayer().play(R.raw.pour);
                 } else if (mPatternNo == Game.TEXNO_WARTERING_POT) {
                     mWaterLevel = Math.max(--mWaterLevel, 0);
                 }

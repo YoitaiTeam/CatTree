@@ -31,7 +31,7 @@ public class SePlayer {
         play(cat[(int) (Math.random() * cat.length)]);
     }
 
-    void play(int se) {
+    public void play(int se) {
         sePlayer.play(seMap.get(se), volumeRate, volumeRate, 0, 0, 1.0f);
     }
 }

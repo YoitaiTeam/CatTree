@@ -1,8 +1,5 @@
 package com.yoitai.cattree;
 
-import android.util.Log;
-
-import com.yoitai.glib.Calc;
 import com.yoitai.glib.Vector2;
 
 /**
