@@ -12,12 +12,12 @@ public class Game {
     // テクスチャ番号
     public static final int TEXNO_BACK = 0;         // 背景
     public static final int TEXNO_CATTREE = 1;      // ねこのなる木
-    public static final int TEXNO_TBLOCK = 2;       // 障害物上
-    public static final int TEXNO_BBLOCK = 3;       // 障害物下
+    public static final int MENU01 = 2;        // メニューA
+    public static final int MENU02 = 3;        // メニューB
     public static final int TEXNO_BASE_CAT = 100;   // 猫TEXTNOのベース
-    public static final int TEXNO_CAT0 = 101;       // TODO:猫の名前書きます
-    public static final int TEXNO_CAT1 = 102;       // TODO:猫の名前書きます
-    public static final int TEXNO_CAT2 = 103;       // TODO:猫の名前書きます
+    public static final int TEXNO_CAT0 = 101;       // まいどさん
+    public static final int TEXNO_CAT1 = 102;       // ぐれいさん
+    public static final int TEXNO_CAT2 = 103;       // らっきーさん
     public static final int TEXNO_CAT3 = 104;       // TODO:猫の名前書きます
     public static final int TEXNO_CAT4 = 105;       // TODO:猫の名前書きます
     public static final int TEXNO_CAT5 = 106;       // TODO:猫の名前書きます
@@ -38,15 +38,20 @@ public class Game {
     public static final int TEXNO_ENEMY0 = 7;       // 敵キャラクタ0
     public static final int TEXNO_ENEMY1 = 8;       // 敵キャラクタ1
     public static final int TEXNO_BULLET = 9;       // 弾
-    public static final int TEXNO_WARTERING_POT = 10;       // じょうろ
-    public static final int TEXNO_WARTERING_POT_FRAME = 11; // じょうろ
-    public static final int TEXNO_SHOP = 12;        // じょうろ
+    public static final int ALBUM01 = 10;           // アルバム1
+    public static final int BTN_CLOSE01 = 11;
+    public static final int ALBUM02 = 12;           // アルバム2
+    public static final int TEXNO_WARTERING_POT = 13;       // じょうろ
+    public static final int TEXNO_WARTERING_POT_FRAME = 14; // じょうろ
+    public static final int TEXNO_SHOP = 15;        // じょうろ
+    public static final int TEXNO_LEAF = 16;        // 草
 
     // メンバー変数
     MainActivity mMainActivity;
     MainRenderer mMyRenderer;
     SePlayer mSePlayer;
     MediaPlayer mBgmPlayer;
+    Menu mMenu;
 
     Input mInput;
 
@@ -66,6 +71,8 @@ public class Game {
         mWateringPot[0].setPatternNo(Game.TEXNO_WARTERING_POT_FRAME);
         mWateringPot[1] = new WateringPot();
         mWateringPot[1].setPatternNo(Game.TEXNO_WARTERING_POT);
+        mMenu = new Menu();
+
     }
 
     // viewの設定
@@ -77,6 +84,9 @@ public class Game {
         mInput = _view.mInput;
 
         mStage.setView(_view);
+
+        mMenu.setView(_view);
+        mMenu.setInput(mInput);
 
         mCatTree.setView(_view);
         mCatTree.setInput(mInput);
@@ -94,13 +104,13 @@ public class Game {
     // ゲーム初期化処理(MyRendererからonSurfaceCreated時に実行されます)
     public void gameInitialize() {
         // 各テクスチャ読み込み
-        mMyRenderer.getTexture(TEXNO_BACK).readTexture(mMainActivity, "background.png", 512, 512, 256.0f, 256.0f, 0.0f, 0.0f);
+        mMyRenderer.getTexture(TEXNO_BACK).readTexture(mMainActivity, "bg_noon.png", 960, 1440, 0.0f, 0.0f, 0.0f, 0.0f);
         mMyRenderer.getTexture(TEXNO_CATTREE).readTexture(mMainActivity, "tree.png", 512, 512, 256.0f, 256.0f, 0.0f, 0.0f);
-        mMyRenderer.getTexture(TEXNO_TBLOCK).readTexture(mMainActivity, "tpole.png", 109, 512, 0.0f, 498.0f, 0.0f, -498.0f);
-        mMyRenderer.getTexture(TEXNO_BBLOCK).readTexture(mMainActivity, "bpole.png", 109, 512, 0.0f, 16.0f, 0.0f, -16.0f);
-        mMyRenderer.getTexture(TEXNO_CAT0).readTexture(mMainActivity, "cat.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
-        mMyRenderer.getTexture(TEXNO_CAT1).readTexture(mMainActivity, "cat2.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
-        mMyRenderer.getTexture(TEXNO_CAT2).readTexture(mMainActivity, "cat3.png", 72, 128, 36.0f, 0.0f, -36.0f, 0.0f);
+        mMyRenderer.getTexture(MENU01).readTexture(mMainActivity, "menu01.png", 50, 50, 256.0f, 256.0f, 0.0f, 0.0f);
+        mMyRenderer.getTexture(MENU02).readTexture(mMainActivity, "menu02.png", 50, 50, 256.0f, 256.0f, 130.0f, 0.0f);
+        mMyRenderer.getTexture(TEXNO_CAT0).readTexture(mMainActivity, "cat_01_maido.png", 125, 185, 62.5f, 92.5f, -52.5f, -92.5f);
+        mMyRenderer.getTexture(TEXNO_CAT1).readTexture(mMainActivity, "cat_02_gray.png", 102, 182, 61.0f, 91.0f, -61.0f, -91.0f);
+        mMyRenderer.getTexture(TEXNO_CAT2).readTexture(mMainActivity, "cat_03_lucky.png", 208, 192, 104.0f, 96.0f, -104.0f, -96.0f);
         mMyRenderer.getTexture(TEXNO_CAT3).readTexture(mMainActivity, "cat.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
         mMyRenderer.getTexture(TEXNO_CAT4).readTexture(mMainActivity, "cat2.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
         mMyRenderer.getTexture(TEXNO_CAT5).readTexture(mMainActivity, "cat3.png", 72, 128, 36.0f, 0.0f, -36.0f, 0.0f);
@@ -124,6 +134,10 @@ public class Game {
         mMyRenderer.getTexture(TEXNO_WARTERING_POT).readTexture(mMainActivity, "watering_pot.png", 256, 230, 0.0f, 26.0f, 0.0f, -26.0f);
         mMyRenderer.getTexture(TEXNO_WARTERING_POT_FRAME).readTexture(mMainActivity, "watering_pot_frame.png", 256, 230, 0.0f, 26.0f, 0.0f, -26.0f);
         mMyRenderer.getTexture(TEXNO_SHOP).readTexture(mMainActivity, "shop.png", 128, 128, 0.0f, 0.0f, 0.0f, 0.0f);
+        mMyRenderer.getTexture(ALBUM01).readTexture(mMainActivity, "album.png", 500, 300, 0.0f, 0.0f, -60.0f, -100.0f);
+        mMyRenderer.getTexture(BTN_CLOSE01).readTexture(mMainActivity, "x.png", 60, 60, 0.0f, 0.0f, 280.0f, -120.0f);
+        mMyRenderer.getTexture(ALBUM02).readTexture(mMainActivity, "album2.png", 500, 300, 0.0f, 0.0f, -60.0f, -100.0f);
+        mMyRenderer.getTexture(TEXNO_LEAF).readTexture(mMainActivity, "cat_leaf.png", 170, 90, 85.0f, 45.0f, -85.0f, -45.0f);
 
         // 各SE読み込み
         mSePlayer.initialize(mMainActivity);
@@ -157,6 +171,8 @@ public class Game {
         mWateringPot[0].frameFunction();
         mWateringPot[1].frameFunction();
 
+        mMenu.frameFunction();
+
         mFrameNo++;
 
         // == 以下 描画処理 ==
@@ -177,5 +193,8 @@ public class Game {
         // じょうろ描画
         mWateringPot[0].draw();
         mWateringPot[1].draw();
+
+        // メニュー描画
+        mMenu.draw();
     }
 }
