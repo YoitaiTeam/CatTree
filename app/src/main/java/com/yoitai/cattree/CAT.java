@@ -1,5 +1,7 @@
 package com.yoitai.cattree;
 
+import android.widget.Toast;
+
 import com.yoitai.glib.Calc;
 import com.yoitai.glib.Vector2;
 
@@ -26,7 +28,7 @@ public class Cat {
     Menu mMenu;         // メニュー
     int mFrameNo;       // フレーム番号
     int mPatternNo;    // パターン番号
-    static int pattern = 0; // TODO 一時的なものちゃんと実装します
+    Toast toast;
 
     // コンストラクタ
     public Cat() {
@@ -44,6 +46,7 @@ public class Cat {
     // setter
     public void setView(MainView _view) {
         mMainView = _view;
+        toast = Toast.makeText(mMainView.getMainActivity(), "", Toast.LENGTH_LONG);
     }
 
     public void setInput(Input _input) {
@@ -67,7 +70,9 @@ public class Cat {
                     // 画面がタッチされた：開始へ
                     mStatus = STAT_PLAYING;
                     // タッチされたら鳴く
-                    mMainView.getmSePlayer().play();
+                    mMainView.getSePlayer().play();
+                    // ポイントも付与する
+                    addPoint();
                 }
             }
             break;
@@ -108,6 +113,8 @@ public class Cat {
             params.getPos().Y = mPos.Y;
             params.getScl().X = 1.0f;
             params.getScl().Y = 1.0f;
+            params.getOfs().X = 100.0f;
+            params.getOfs().Y = 100.0f;
             params.setRot(Calc.CalcAngleRad(mSpeed.X, mSpeed.Y / 8, false));
         }
     }
@@ -130,11 +137,18 @@ public class Cat {
         mAccel.Set(0.0f, 0.0f);
     }
 
-    public boolean touchTest() {
+    boolean touchTest() {
         float x = mInput.getX() - mPos.X;
         float y = mInput.getY() - mPos.Y;
 
         if (x > 0 && x < 60 && Math.abs(y) < 64) return true;
         return false;
+    }
+
+    void addPoint() {
+        int point = CatTreeData.getInt(CatTreeData.POINT, 0);
+        CatTreeData.setInt(CatTreeData.POINT, ++point);
+        toast.setText(point + "ポイントゲットにゃ！");
+        toast.show();
     }
 }

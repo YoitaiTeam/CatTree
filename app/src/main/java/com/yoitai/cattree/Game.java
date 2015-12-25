@@ -2,6 +2,8 @@ package com.yoitai.cattree;
 
 import android.media.MediaPlayer;
 
+import com.yoitai.cattree.object.WateringPot;
+
 // ゲームの制御
 public class Game {
     // ゲーム設定
@@ -39,6 +41,9 @@ public class Game {
     public static final int ALBUM01 = 10;        // アルバム1
     public static final int BTN_CLOSE01 = 11;
     public static final int ALBUM02 = 12;        // アルバム2
+    public static final int TEXNO_WARTERING_POT = 13;       // じょうろ
+    public static final int TEXNO_WARTERING_POT_FRAME = 14; // じょうろ
+    public static final int TEXNO_SHOP = 15;        // じょうろ
 
     // メンバー変数
     MainActivity mMainActivity;
@@ -52,13 +57,19 @@ public class Game {
     long mFrameNo;
     Stage mStage;
     CatTree mCatTree;
+    Shop mShop;
+    WateringPot[] mWateringPot = new WateringPot[2];
 
     // コンストラクタ
     public Game() {
         mStage = new Stage();
         mCatTree = new CatTree();
         mMenu = new Menu();
-
+        mShop = new Shop();
+        mWateringPot[0] = new WateringPot();
+        mWateringPot[0].setPatternNo(Game.TEXNO_WARTERING_POT_FRAME);
+        mWateringPot[1] = new WateringPot();
+        mWateringPot[1].setPatternNo(Game.TEXNO_WARTERING_POT);
     }
 
     // viewの設定
@@ -78,6 +89,13 @@ public class Game {
         mCatTree.setInput(mInput);
         mCatTree.setStage(mStage);
         mCatTree.setMenu(mMenu);
+        mShop.setView(_view);
+        mShop.setInput(mInput);
+
+        mWateringPot[0].setView(_view);
+        mWateringPot[0].setInput(mInput);
+        mWateringPot[1].setView(_view);
+        mWateringPot[1].setInput(mInput);
     }
 
     // ゲーム初期化処理(MyRendererからonSurfaceCreated時に実行されます)
@@ -113,15 +131,23 @@ public class Game {
         mMyRenderer.getTexture(ALBUM01).readTexture(mMainActivity, "album.png", 500, 300, 0.0f, 0.0f, -60.0f, -100.0f);
         mMyRenderer.getTexture(BTN_CLOSE01).readTexture(mMainActivity, "x.png", 60, 60, 0.0f, 0.0f, 280.0f, -120.0f);
         mMyRenderer.getTexture(ALBUM02).readTexture(mMainActivity, "album2.png", 500, 300, 0.0f, 0.0f, -60.0f, -100.0f);
+        mMyRenderer.getTexture(TEXNO_WARTERING_POT).readTexture(mMainActivity, "watering_pot.png", 256, 230, 0.0f, 26.0f, 0.0f, -26.0f);
+        mMyRenderer.getTexture(TEXNO_WARTERING_POT_FRAME).readTexture(mMainActivity, "watering_pot_frame.png", 256, 230, 0.0f, 26.0f, 0.0f, -26.0f);
+        mMyRenderer.getTexture(TEXNO_SHOP).readTexture(mMainActivity, "shop.png", 128, 128, 0.0f, 0.0f, 0.0f, 0.0f);
 
         // 各SE読み込み
         mSePlayer.initialize(mMainActivity);
         mSePlayer.load(mMainActivity, R.raw.cat_cry1);
         mSePlayer.load(mMainActivity, R.raw.cat_cry2);
+        mSePlayer.load(mMainActivity, R.raw.open);
+        mSePlayer.load(mMainActivity, R.raw.close);
 
         // BGM設定
         mBgmPlayer.setLooping(true);
         mBgmPlayer.start();
+
+        // データベース初期化
+        CatTreeData.init(mMainActivity);
     }
 
     // 毎フレーム処理(FPS毎にMainThreadから呼ばれます)
@@ -134,6 +160,12 @@ public class Game {
         mCatTree.frameFunction();
 
         mMenu.frameFunction();
+        // お店のフレーム処理
+        mShop.frameFunction();
+
+        // じょうろ描画
+        mWateringPot[0].frameFunction();
+        mWateringPot[1].frameFunction();
 
         mFrameNo++;
 
@@ -151,5 +183,12 @@ public class Game {
 
         // メニュー描画
         mMenu.draw();
+
+        // お店描画
+        mShop.draw();
+
+        // じょうろ描画
+        mWateringPot[0].draw();
+        mWateringPot[1].draw();
     }
 }
