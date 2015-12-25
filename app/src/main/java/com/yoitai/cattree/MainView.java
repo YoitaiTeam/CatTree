@@ -114,7 +114,7 @@ public class MainView extends GLSurfaceView {
     }
 
     // SePlayer取得
-    public SePlayer getmSePlayer() {
+    public SePlayer getSePlayer() {
         return (mSePlayer);
     }
 

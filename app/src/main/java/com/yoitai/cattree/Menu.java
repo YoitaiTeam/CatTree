@@ -1,8 +1,5 @@
 package com.yoitai.cattree;
 
-import android.util.Log;
-
-import com.yoitai.glib.Calc;
 import com.yoitai.glib.Vector2;
 
 /**
@@ -110,7 +107,6 @@ public class Menu {
     public boolean touchOpenA() {
         float x = mInput.getX();
         float y = mInput.getY();
-        Log.i("MSG", mInput.getX() + " " + mInput.getY() +" "+Math.abs(y));
 
         if (x > 0 && x < 100 && Math.abs(y) < 64) return true;
         return false;
@@ -119,7 +115,6 @@ public class Menu {
     public boolean touchOpenB() {
         float x = mInput.getX();
         float y = mInput.getY();
-        Log.i("MSG", mInput.getX() + " " + mInput.getY() +" "+Math.abs(y));
 
         if (x > 130 && x < 190 && Math.abs(y) < 64) return true;
         return false;
@@ -128,7 +123,6 @@ public class Menu {
     public boolean touchCloseA() {
         float x = mInput.getX();
         float y = mInput.getY();
-        Log.i("MSG", x + " " + y +" "+Math.abs(y));
 
         if (x > 400 && x < 460 && Math.abs(y) < 250 && Math.abs(y) > 210) return true;
         return false;
@@ -148,7 +142,7 @@ public class Menu {
             params.setSprite(Game.BTN_CLOSE01);
             params.getPos().X = mPos.X;
             params.getPos().Y = mPos.Y;
-        }else{
+        } else {
 
         }
     }
