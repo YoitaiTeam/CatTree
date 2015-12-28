@@ -63,17 +63,31 @@ public class Menu {
             case DISP_CLOSE: {
 
                 // 待ち状態
-                if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenA()) {
+                if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenShop()) {
 
                     // 画面がタッチされた：開始へ
                     mStatus = DISP_OPEN;
-                    mPatternNo = Game.ALBUM01;
+                    mPatternNo = Game.TEXNO_ALBUM01;
                 }
-                if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenB()) {
+                if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenGoods()) {
 
                     // 画面がタッチされた：開始へ
                     mStatus = DISP_OPEN;
-                    mPatternNo = Game.ALBUM02;
+                    mPatternNo = Game.TEXNO_ALBUM02;
+                }
+                if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenAlbum()) {
+                    //mInput.checkStatus(Input.STATUS_DOWN) &&
+
+                    // 画面がタッチされた：開始へ
+                    mStatus = DISP_OPEN;
+                    mPatternNo = Game.TEXNO_ALBUM03;
+                }
+                if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenActive()) {
+                    //mInput.checkStatus(Input.STATUS_DOWN) &&
+
+                    // 画面がタッチされた：開始へ
+                    mStatus = DISP_OPEN;
+                    mPatternNo = Game.TEXNO_ALBUM04;
                 }
             }
             break;
@@ -105,20 +119,36 @@ public class Menu {
         mAccel.Set(0.0f, 0.0f);
     }
 
-    public boolean touchOpenA() {
+    public boolean touchOpenShop() {
+        float x = mInput.getX();
+        float y = mInput.getY();
+
+        if (x > 0 && x < 100 && Math.abs(y) > 550) return true;
+        return false;
+    }
+
+    public boolean touchOpenGoods() {
+        float x = mInput.getX();
+        float y = mInput.getY();
+
+        if (x > 120 && x < 220 && Math.abs(y) > 550) return true;
+        return false;
+    }
+
+    public boolean touchOpenAlbum() {
         float x = mInput.getX();
         float y = mInput.getY();
 //        Log.i("touchOpenA", mInput.getX() + " " + mInput.getY() +" "+Math.abs(y));
 
-        if (x > 0 && x < 100 && Math.abs(y) < 64) return true;
+        if (x > 240 && x < 340 && Math.abs(y) > 550) return true;
         return false;
     }
 
-    public boolean touchOpenB() {
+    public boolean touchOpenActive() {
         float x = mInput.getX();
         float y = mInput.getY();
 
-        if (x > 130 && x < 190 && Math.abs(y) < 64) return true;
+        if (x > 360 && x < 460 && Math.abs(y) > 550) return true;
         return false;
     }
 
