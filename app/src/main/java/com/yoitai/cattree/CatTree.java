@@ -57,9 +57,8 @@ public class CatTree {
     }
 
     public void setMenu(Menu _menu) {
-        mMenu = _menu;
         for (int i = 0; i < CAT_MAX; i++) {
-            mCat[i].setMenu(mMenu);
+            mCat[i].setMenu(_menu);
         }
     }
 
