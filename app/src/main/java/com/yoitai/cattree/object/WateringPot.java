@@ -3,7 +3,6 @@ package com.yoitai.cattree.object;
 import com.yoitai.cattree.DrawParams;
 import com.yoitai.cattree.Game;
 import com.yoitai.cattree.Input;
-import com.yoitai.cattree.MainRenderer;
 import com.yoitai.cattree.MainView;
 import com.yoitai.cattree.R;
 import com.yoitai.glib.Vector2;
@@ -31,7 +30,7 @@ public class WateringPot {
     public WateringPot() {
         mStatus = STAT_EMPTY;
         mWaterLevel = 100.0f;
-        mPos = new Vector2((float) MainRenderer.CONTENTS_W / 5 * 4, 515.0f);
+        mPos = new Vector2(384.0f, 515.0f);
         mFrameNo = 0;
     }
 

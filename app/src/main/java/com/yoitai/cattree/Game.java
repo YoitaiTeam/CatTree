@@ -16,6 +16,7 @@ public class Game {
     public static final int MENU02 = 3;        // メニューB
     public static final int TEXNO_WOOD_STEM = 4;    // ねこのなる木の幹
     public static final int TEXNO_WOOD_LEAF = 5;    // ねこのなるきの葉
+    public static final int TEXNO_ZARU = 6;         // ザル
     public static final int TEXNO_ENEMY0 = 7;       // 敵キャラクタ0
     public static final int TEXNO_ENEMY1 = 8;       // 敵キャラクタ1
     public static final int TEXNO_BULLET = 9;       // 弾
@@ -111,6 +112,7 @@ public class Game {
         mMyRenderer.getTexture(MENU02).readTexture(mMainActivity, "menu02.png", 50, 50, 256.0f, 256.0f, 130.0f, 0.0f);
         mMyRenderer.getTexture(TEXNO_WOOD_STEM).readTexture(mMainActivity, "wood_stem.png", 850, 1012, 425.0f, 506.0f, -425.0f, -506.0f);
         mMyRenderer.getTexture(TEXNO_WOOD_LEAF).readTexture(mMainActivity, "wood_leaf.png", 850, 1012, 425.0f, 506.0f, -425.0f, -506.0f);
+        mMyRenderer.getTexture(TEXNO_ZARU).readTexture(mMainActivity, "zaru.png", 240, 230, 120.0f, 115.0f, -120.0f, -115.0f);
         mMyRenderer.getTexture(TEXNO_CAT0).readTexture(mMainActivity, "cat_01_maido.png", 125, 185, 62.5f, 92.5f, -52.5f, -92.5f);
         mMyRenderer.getTexture(TEXNO_CAT1).readTexture(mMainActivity, "cat_02_gray.png", 102, 182, 61.0f, 91.0f, -61.0f, -91.0f);
         mMyRenderer.getTexture(TEXNO_CAT2).readTexture(mMainActivity, "cat_03_lucky.png", 208, 192, 104.0f, 96.0f, -104.0f, -96.0f);

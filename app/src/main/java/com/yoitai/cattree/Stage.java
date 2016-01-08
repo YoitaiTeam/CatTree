@@ -48,7 +48,7 @@ public class Stage {
         params.getScl().X = 0.5f;
         params.getScl().Y = 0.5f;
 
-        // CATTREE描画
+        // ねこのなる木描画
         params = mMainView.getMainRenderer().allocDrawParams();
         params.setSprite(Game.TEXNO_WOOD_STEM);
         params.getPos().X = 240;
@@ -59,6 +59,14 @@ public class Stage {
         params.setSprite(Game.TEXNO_WOOD_LEAF);
         params.getPos().X = 240;
         params.getPos().Y = 290;
+        params.getScl().X = 0.5f;
+        params.getScl().Y = 0.5f;
+
+        // ザル描画
+        params = mMainView.getMainRenderer().allocDrawParams();
+        params.setSprite(Game.TEXNO_ZARU);
+        params.getPos().X = 96.0f;
+        params.getPos().Y = 502.5f;
         params.getScl().X = 0.5f;
         params.getScl().Y = 0.5f;
 
