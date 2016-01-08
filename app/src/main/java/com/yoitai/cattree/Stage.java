@@ -1,5 +1,7 @@
 package com.yoitai.cattree;
 
+import com.yoitai.cattree.object.Zaru;
+
 // ステージ管理クラス
 public class Stage {
     public class BlockParams {
@@ -65,10 +67,10 @@ public class Stage {
         // ザル描画
         params = mMainView.getMainRenderer().allocDrawParams();
         params.setSprite(Game.TEXNO_ZARU);
-        params.getPos().X = 96.0f;
-        params.getPos().Y = 502.5f;
-        params.getScl().X = 0.5f;
-        params.getScl().Y = 0.5f;
+        params.getPos().X = Zaru.POS_X;
+        params.getPos().Y = Zaru.POS_Y;
+        params.getScl().X = Zaru.SCL_X;
+        params.getScl().Y = Zaru.SCL_Y;
 
         // MENU描画
         params = mMainView.getMainRenderer().allocDrawParams();

@@ -2,6 +2,7 @@ package com.yoitai.cattree;
 
 import android.widget.Toast;
 
+import com.yoitai.cattree.object.Zaru;
 import com.yoitai.glib.Calc;
 import com.yoitai.glib.Vector2;
 
@@ -69,7 +70,7 @@ public class Cat {
                     // タッチされたら鳴く
                     mMainView.getSePlayer().play();
                     // ポイントも付与する
-                    addPoint();
+//                    addPoint();
                 }
             }
             break;
@@ -86,6 +87,11 @@ public class Cat {
                 if (mStage.hitTest(mPos.X, mPos.Y, 32.0f, 32.0f)) {
                     // 衝突した：状態を死亡へ
                     mStatus = STAT_DEAD;
+                }
+                if (Zaru.histTest(mPos.X, mPos.Y, 32.0f, 32.0f, 0.5f, 0.5f)) {
+                    mStatus = STAT_DEAD;
+                    // ポイントも付与する
+                    addPoint();
                 }
 
                 // 加速度によるスピード補正
