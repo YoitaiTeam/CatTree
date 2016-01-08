@@ -27,17 +27,19 @@ public class Cat {
     Stage mStage;       // ステージ
     int mFrameNo;       // フレーム番号
     int mPatternNo;    // パターン番号
+    float mRandamSpeed;
     Toast toast;
 
     // コンストラクタ
     public Cat() {
         mStatus = STAT_DEAD;
+        mRandamSpeed = (float) Math.random() * 10 * (Math.random() * 10 < 5 ? 1 : -1);
         double init_x = Math.random() * MainRenderer.CONTENTS_W;
 //        double init_x = MainRenderer.CONTENTS_W / 4;
         double init_y = Math.random() * MainRenderer.CONTENTS_H;
 //        double init_y = MainRenderer.CONTENTS_H / 2;
         mPos = new Vector2((float) init_x, (float) init_y);
-        mSpeed = new Vector2((float) Math.random() * 10 * (Math.random() * 10 < 5 ? 1 : -1), 0.0f);
+        mSpeed = new Vector2(mRandamSpeed, 0.0f);
         mAccel = new Vector2(0.0f, 0.0f);
         mFrameNo = 0;
     }
@@ -148,7 +150,7 @@ public class Cat {
 
 //        mStatus = STAT_WAITING;
         mPos.Set((float) init_x, (float) init_y);
-        mSpeed.Set(SPEED, 0.0f);
+        mSpeed.Set(mRandamSpeed, 0.0f);
         mAccel.Set(0.0f, 0.0f);
     }
 
@@ -161,9 +163,13 @@ public class Cat {
     }
 
     void addPoint() {
-        int point = CatTreeData.getInt(CatTreeData.POINT, 0);
-        CatTreeData.setInt(CatTreeData.POINT, ++point);
-        toast.setText(point + "ポイントゲットにゃ！");
-        toast.show();
+        try {
+            int point = CatTreeData.getInt(CatTreeData.POINT, 0);
+            CatTreeData.setInt(CatTreeData.POINT, ++point);
+            toast.setText(point + "ポイントゲットにゃ！");
+            toast.show();
+        } catch (Exception e) {
+
+        }
     }
 }
