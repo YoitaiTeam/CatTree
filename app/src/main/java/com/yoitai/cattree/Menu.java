@@ -160,8 +160,8 @@ public class Menu {
         return false;
     }
 
-    // 状態チェック
-    public boolean menuStatus() {
+    // メニューの開閉状態チェック
+    public boolean isCloseMenu() {
         // メニューを閉じている時
         if (mStatus == MENU_CLOSE) {
             return (true);

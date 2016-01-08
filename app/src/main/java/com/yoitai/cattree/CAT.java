@@ -66,7 +66,7 @@ public class Cat {
         switch (mStatus) {
             case STAT_WAITING: {
                 // 待ち状態
-                if (mInput.checkStatus(Input.STATUS_DOWN) && mMenu.menuStatus() && touchTest()) {
+                if (mInput.checkStatus(Input.STATUS_DOWN) && mMenu.isCloseMenu() && touchTest()) {
                     // 画面がタッチされた：開始へ
                     mStatus = STAT_PLAYING;
                     // タッチされたら鳴く
