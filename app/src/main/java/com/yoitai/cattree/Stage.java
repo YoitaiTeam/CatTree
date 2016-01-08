@@ -50,7 +50,17 @@ public class Stage {
 
         // CATTREE描画
         params = mMainView.getMainRenderer().allocDrawParams();
-        params.setSprite(Game.TEXNO_CATTREE);
+        params.setSprite(Game.TEXNO_WOOD_STEM);
+        params.getPos().X = 240;
+        params.getPos().Y = 290;
+        params.getScl().X = 0.5f;
+        params.getScl().Y = 0.5f;
+        params = mMainView.getMainRenderer().allocDrawParams();
+        params.setSprite(Game.TEXNO_WOOD_LEAF);
+        params.getPos().X = 240;
+        params.getPos().Y = 290;
+        params.getScl().X = 0.5f;
+        params.getScl().Y = 0.5f;
 
         // MENU描画
         params = mMainView.getMainRenderer().allocDrawParams();

@@ -31,7 +31,7 @@ public class WateringPot {
     public WateringPot() {
         mStatus = STAT_EMPTY;
         mWaterLevel = 100.0f;
-        mPos = new Vector2((float) MainRenderer.CONTENTS_W / 5 * 4, (float) MainRenderer.CONTENTS_H / 4 * 3);
+        mPos = new Vector2((float) MainRenderer.CONTENTS_W / 5 * 4, 515.0f);
         mFrameNo = 0;
     }
 
