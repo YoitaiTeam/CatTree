@@ -3,6 +3,7 @@ package com.yoitai.cattree;
 import android.media.MediaPlayer;
 
 import com.yoitai.cattree.object.WateringPot;
+import com.yoitai.cattree.object.Zaru;
 
 // ゲームの制御
 public class Game {
@@ -12,8 +13,22 @@ public class Game {
     // テクスチャ番号
     public static final int TEXNO_BACK = 0;         // 背景
     public static final int TEXNO_CATTREE = 1;      // ねこのなる木
-    public static final int TEXNO_MENU01 = 2;        // メニュー1
-    public static final int TEXNO_MENU02 = 3;        // メニュー2
+    public static final int TEXNO_MENU01 = 2;       // メニュー1
+    public static final int TEXNO_MENU02 = 3;       // メニュー2
+    public static final int TEXNO_WOOD_STEM = 4;    // ねこのなる木の幹
+    public static final int TEXNO_WOOD_LEAF = 5;    // ねこのなるきの葉
+    public static final int TEXNO_ZARU = 6;         // ザル
+    public static final int TEXNO_MENU03 = 7;       // メニュー3
+    public static final int TEXNO_MENU04 = 8;       // メニュー4
+    public static final int TEXNO_ALBUM01 = 10;     // アルバム3
+    public static final int TEXNO_ALBUM02 = 11;     // アルバム4
+    public static final int BTN_CLOSE01 = 12;
+    public static final int TEXNO_POT_FILL = 13;    // じょうろ
+    public static final int TEXNO_POT_EMPTY = 14;   // じょうろ
+    public static final int TEXNO_SHOP = 15;        // じょうろ
+    public static final int TEXNO_LEAF = 16;        // 草
+    public static final int TEXNO_ALBUM03 = 17;           // アルバム4
+    public static final int TEXNO_ALBUM04 = 18;           // アルバム4
     public static final int TEXNO_BASE_CAT = 100;   // 猫TEXTNOのベース
     public static final int TEXNO_CAT0 = 101;       // まいどさん
     public static final int TEXNO_CAT1 = 102;       // ぐれいさん
@@ -35,18 +50,6 @@ public class Game {
     public static final int TEXNO_RARE_CAT3 = 118;  // TODO:猫の名前書きます
     public static final int TEXNO_RARE_CAT4 = 119;  // TODO:猫の名前書きます
     public static final int TEXNO_RARE_CAT5 = 120;  // TODO:猫の名前書きます
-    public static final int TEXNO_MENU03 = 7;       // メニュー3
-    public static final int TEXNO_MENU04 = 8;       // メニュー4
-    public static final int TEXNO_BULLET = 9;       // 弾
-    public static final int TEXNO_ALBUM01 = 10;           // アルバム3
-    public static final int TEXNO_ALBUM02 = 11;           // アルバム4
-    public static final int BTN_CLOSE01 = 12;
-    public static final int TEXNO_WARTERING_POT = 13;       // じょうろ
-    public static final int TEXNO_WARTERING_POT_FRAME = 14; // じょうろ
-    public static final int TEXNO_SHOP = 15;        // じょうろ
-    public static final int TEXNO_LEAF = 16;        // 草
-    public static final int TEXNO_ALBUM03 = 17;           // アルバム4
-    public static final int TEXNO_ALBUM04 = 18;           // アルバム4
 
     // メンバー変数
     MainActivity mMainActivity;
@@ -69,9 +72,9 @@ public class Game {
         mCatTree = new CatTree();
         mShop = new Shop();
         mWateringPot[0] = new WateringPot();
-        mWateringPot[0].setPatternNo(Game.TEXNO_WARTERING_POT_FRAME);
+        mWateringPot[0].setPatternNo(Game.TEXNO_POT_FILL);
         mWateringPot[1] = new WateringPot();
-        mWateringPot[1].setPatternNo(Game.TEXNO_WARTERING_POT);
+        mWateringPot[1].setPatternNo(Game.TEXNO_POT_EMPTY);
         mMenu = new Menu();
     }
 
@@ -104,12 +107,15 @@ public class Game {
     // ゲーム初期化処理(MyRendererからonSurfaceCreated時に実行されます)
     public void gameInitialize() {
         // 各テクスチャ読み込み
-        mMyRenderer.getTexture(TEXNO_BACK).readTexture(mMainActivity, "bg_noon.png", 960, 1440, 0.0f, 0.0f, 0.0f, 0.0f);
+        mMyRenderer.getTexture(TEXNO_BACK).readTexture(mMainActivity, "main_bg.png", 960, 1440, 0.0f, 0.0f, 0.0f, 0.0f);
         mMyRenderer.getTexture(TEXNO_CATTREE).readTexture(mMainActivity, "tree.png", 512, 512, 256.0f, 256.0f, 0.0f, 0.0f);
         mMyRenderer.getTexture(TEXNO_MENU01).readTexture(mMainActivity, "menu_config_shop.png", 100, 100, 104.0f, 122.0f, 0.0f, 540.0f);
         mMyRenderer.getTexture(TEXNO_MENU02).readTexture(mMainActivity, "menu_config_goods.png", 100, 100, 104.0f, 122.0f, 120.0f, 540.0f);
         mMyRenderer.getTexture(TEXNO_MENU03).readTexture(mMainActivity, "menu_config_album.png", 100, 100, 104.0f, 122.0f, 240.0f, 540.0f);
         mMyRenderer.getTexture(TEXNO_MENU04).readTexture(mMainActivity, "menu_config_active.png", 100, 100, 104.0f, 122.0f, 360.0f, 540.0f);
+        mMyRenderer.getTexture(TEXNO_WOOD_STEM).readTexture(mMainActivity, "wood_stem.png", 850, 1012, 425.0f, 506.0f, -425.0f, -506.0f);
+        mMyRenderer.getTexture(TEXNO_WOOD_LEAF).readTexture(mMainActivity, "wood_leaf.png", 850, 1012, 425.0f, 506.0f, -425.0f, -506.0f);
+        mMyRenderer.getTexture(TEXNO_ZARU).readTexture(mMainActivity, "zaru.png", Zaru.WIDTH, Zaru.HEIGHT, 120.0f, 115.0f, -120.0f, -115.0f);
         mMyRenderer.getTexture(TEXNO_CAT0).readTexture(mMainActivity, "cat_01_maido.png", 125, 185, 62.5f, 92.5f, -52.5f, -92.5f);
         mMyRenderer.getTexture(TEXNO_CAT1).readTexture(mMainActivity, "cat_02_gray.png", 102, 182, 61.0f, 91.0f, -61.0f, -91.0f);
         mMyRenderer.getTexture(TEXNO_CAT2).readTexture(mMainActivity, "cat_03_lucky.png", 208, 192, 104.0f, 96.0f, -104.0f, -96.0f);
@@ -130,9 +136,8 @@ public class Game {
         mMyRenderer.getTexture(TEXNO_RARE_CAT3).readTexture(mMainActivity, "cat3.png", 72, 128, 36.0f, 0.0f, -36.0f, 0.0f);
         mMyRenderer.getTexture(TEXNO_RARE_CAT4).readTexture(mMainActivity, "cat.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
         mMyRenderer.getTexture(TEXNO_RARE_CAT5).readTexture(mMainActivity, "cat2.png", 70, 105, 35.0f, 52.0f, -35.0f, -52.0f);
-        mMyRenderer.getTexture(TEXNO_BULLET).readTexture(mMainActivity, "bullet.png", 26, 18, 13.0f, 8.0f, -13.0f, 8.0f);
-        mMyRenderer.getTexture(TEXNO_WARTERING_POT).readTexture(mMainActivity, "watering_pot.png", 256, 230, 0.0f, 26.0f, 0.0f, -26.0f);
-        mMyRenderer.getTexture(TEXNO_WARTERING_POT_FRAME).readTexture(mMainActivity, "watering_pot_frame.png", 256, 230, 0.0f, 26.0f, 0.0f, -26.0f);
+        mMyRenderer.getTexture(TEXNO_POT_FILL).readTexture(mMainActivity, "pot_fill.png", 250, 205, 125.0f, 102.5f, -125.0f, -102.5f);
+        mMyRenderer.getTexture(TEXNO_POT_EMPTY).readTexture(mMainActivity, "pot_empty.png", 250, 205, 125.0f, 102.5f, -125.0f, -102.5f);
         mMyRenderer.getTexture(TEXNO_SHOP).readTexture(mMainActivity, "shop.png", 128, 128, 0.0f, 0.0f, 0.0f, 0.0f);
         mMyRenderer.getTexture(TEXNO_ALBUM01).readTexture(mMainActivity, "album_bg.png", 235, 150, 0.0f, 0.0f, -80.0f, -100.0f);
         mMyRenderer.getTexture(TEXNO_ALBUM02).readTexture(mMainActivity, "album_bg.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);

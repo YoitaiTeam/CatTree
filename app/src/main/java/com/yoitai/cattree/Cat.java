@@ -2,6 +2,7 @@ package com.yoitai.cattree;
 
 import android.widget.Toast;
 
+import com.yoitai.cattree.object.Zaru;
 import com.yoitai.glib.Calc;
 import com.yoitai.glib.Vector2;
 
@@ -28,17 +29,19 @@ public class Cat {
     Menu mMenu;         // メニュー
     int mFrameNo;       // フレーム番号
     int mPatternNo;    // パターン番号
+    float mRandamSpeed;
     Toast toast;
 
     // コンストラクタ
     public Cat() {
         mStatus = STAT_DEAD;
+        mRandamSpeed = (float) Math.random() * 10 * (Math.random() * 10 < 5 ? 1 : -1);
         double init_x = Math.random() * MainRenderer.CONTENTS_W;
 //        double init_x = MainRenderer.CONTENTS_W / 4;
         double init_y = Math.random() * MainRenderer.CONTENTS_H;
 //        double init_y = MainRenderer.CONTENTS_H / 2;
         mPos = new Vector2((float) init_x, (float) init_y);
-        mSpeed = new Vector2(SPEED, 0.0f);
+        mSpeed = new Vector2(mRandamSpeed, 0.0f);
         mAccel = new Vector2(0.0f, 0.0f);
         mFrameNo = 0;
     }
@@ -72,7 +75,7 @@ public class Cat {
                     // タッチされたら鳴く
                     mMainView.getSePlayer().play();
                     // ポイントも付与する
-                    addPoint();
+//                    addPoint();
                 }
             }
             break;
@@ -82,6 +85,11 @@ public class Cat {
                 if (mStage.hitTest(mPos.X, mPos.Y, 32.0f, 32.0f)) {
                     // 衝突した：状態を死亡へ
                     mStatus = STAT_DEAD;
+                }
+                if (Zaru.histTest(mPos.X, mPos.Y, 32.0f, 32.0f, 0.5f, 0.5f)) {
+                    mStatus = STAT_DEAD;
+                    // ポイントも付与する
+                    addPoint();
                 }
 
                 // 加速度によるスピード補正
@@ -106,17 +114,30 @@ public class Cat {
     public void draw() {
         DrawParams params;
 
-        if (mStatus != STAT_DEAD) {
-            params = mMainView.getMainRenderer().allocDrawParams();
-            params.setSprite(mPatternNo);
-            params.getPos().X = mPos.X;
-            params.getPos().Y = mPos.Y;
-            params.getScl().X = 1.0f;
-            params.getScl().Y = 1.0f;
-            params.getOfs().X = 100.0f;
-            params.getOfs().Y = 100.0f;
-            params.setRot(Calc.CalcAngleRad(mSpeed.X, mSpeed.Y / 8, false));
-        }
+        if (mStatus == STAT_DEAD) return;
+        // ねこ
+        params = mMainView.getMainRenderer().allocDrawParams();
+        params.setSprite(mPatternNo);
+        params.getPos().X = mPos.X;
+        params.getPos().Y = mPos.Y;
+        params.getScl().X = 0.5f;
+        params.getScl().Y = 0.5f;
+        params.getOfs().X = 100.0f;
+        params.getOfs().Y = 100.0f;
+//        params.setRot(Calc.CalcAngleRad(mSpeed.X, mSpeed.Y / 8, false));
+
+        if (mStatus == STAT_PLAYING) return;
+        // くさ
+        params = mMainView.getMainRenderer().allocDrawParams();
+        params.setSprite(Game.TEXNO_LEAF);
+        params.getPos().X = mPos.X;
+        params.getPos().Y = mPos.Y + 40;
+        params.getScl().X = 0.5f;
+        params.getScl().Y = 0.5f;
+        params.getOfs().X = 100.0f;
+        params.getOfs().Y = 100.0f;
+        params.setRot(Calc.CalcAngleRad(mSpeed.X, mSpeed.Y / 8, false));
+
     }
 
     public boolean growUp(int _texno) {
@@ -133,7 +154,7 @@ public class Cat {
 
 //        mStatus = STAT_WAITING;
         mPos.Set((float) init_x, (float) init_y);
-        mSpeed.Set(SPEED, 0.0f);
+        mSpeed.Set(mRandamSpeed, 0.0f);
         mAccel.Set(0.0f, 0.0f);
     }
 
@@ -146,9 +167,13 @@ public class Cat {
     }
 
     void addPoint() {
-        int point = CatTreeData.getInt(CatTreeData.POINT, 0);
-        CatTreeData.setInt(CatTreeData.POINT, ++point);
-        toast.setText(point + "ポイントゲットにゃ！");
-        toast.show();
+        try {
+            int point = CatTreeData.getInt(CatTreeData.POINT, 0);
+            CatTreeData.setInt(CatTreeData.POINT, ++point);
+            toast.setText(point + "ポイントゲットにゃ！");
+            toast.show();
+        } catch (Exception e) {
+
+        }
     }
 }

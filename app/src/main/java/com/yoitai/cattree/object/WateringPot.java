@@ -3,7 +3,6 @@ package com.yoitai.cattree.object;
 import com.yoitai.cattree.DrawParams;
 import com.yoitai.cattree.Game;
 import com.yoitai.cattree.Input;
-import com.yoitai.cattree.MainRenderer;
 import com.yoitai.cattree.MainView;
 import com.yoitai.cattree.R;
 import com.yoitai.glib.Vector2;
@@ -31,7 +30,7 @@ public class WateringPot {
     public WateringPot() {
         mStatus = STAT_EMPTY;
         mWaterLevel = 100.0f;
-        mPos = new Vector2((float) MainRenderer.CONTENTS_W / 5 * 3, (float) MainRenderer.CONTENTS_H / 4 * 3);
+        mPos = new Vector2(384.0f, 515.0f);
         mFrameNo = 0;
     }
 
@@ -53,7 +52,7 @@ public class WateringPot {
                     // 画面がタッチされた：水を補充する
                     mStatus = STAT_FILL;
                     mMainView.getSePlayer().play(R.raw.pour);
-                } else if (mPatternNo == Game.TEXNO_WARTERING_POT) {
+                } else if (mPatternNo == Game.TEXNO_POT_FILL) {
                     mWaterLevel = Math.max(--mWaterLevel, 0);
                 }
             }
@@ -82,11 +81,7 @@ public class WateringPot {
     }
 
     boolean touchTest() {
-        float x = mInput.getX() - mPos.X;
-        float y = mInput.getY() - mPos.Y;
-
-        if (x > 0 && x < 128 && Math.abs(y) < 115) return true;
-        return false;
+        return (Math.abs(mInput.getX() - mPos.X) < 62.5 && Math.abs(mInput.getY() - mPos.Y) < 61.25);
     }
 
     public void setPatternNo(int _no) {

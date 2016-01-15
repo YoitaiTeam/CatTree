@@ -1,5 +1,7 @@
 package com.yoitai.cattree;
 
+import com.yoitai.cattree.object.Zaru;
+
 // ステージ管理クラス
 public class Stage {
     public class BlockParams {
@@ -48,9 +50,27 @@ public class Stage {
         params.getScl().X = 0.5f;
         params.getScl().Y = 0.5f;
 
-        // CATTREE描画
+        // ねこのなる木描画
         params = mMainView.getMainRenderer().allocDrawParams();
-        params.setSprite(Game.TEXNO_CATTREE);
+        params.setSprite(Game.TEXNO_WOOD_STEM);
+        params.getPos().X = 240;
+        params.getPos().Y = 290;
+        params.getScl().X = 0.5f;
+        params.getScl().Y = 0.5f;
+        params = mMainView.getMainRenderer().allocDrawParams();
+        params.setSprite(Game.TEXNO_WOOD_LEAF);
+        params.getPos().X = 240;
+        params.getPos().Y = 290;
+        params.getScl().X = 0.5f;
+        params.getScl().Y = 0.5f;
+
+        // ザル描画
+        params = mMainView.getMainRenderer().allocDrawParams();
+        params.setSprite(Game.TEXNO_ZARU);
+        params.getPos().X = Zaru.POS_X;
+        params.getPos().Y = Zaru.POS_Y;
+        params.getScl().X = Zaru.SCL_X;
+        params.getScl().Y = Zaru.SCL_Y;
 
         // MENU描画
         params = mMainView.getMainRenderer().allocDrawParams();
