@@ -10,7 +10,6 @@ import com.yoitai.cattree.MainRenderer;
 import com.yoitai.cattree.MainView;
 import com.yoitai.cattree.Menu;
 import com.yoitai.cattree.Stage;
-import com.yoitai.cattree.object.Zaru;
 import com.yoitai.glib.Calc;
 import com.yoitai.glib.Vector2;
 
@@ -158,7 +157,7 @@ public class Cat {
     // ゲームリセット
     void reset() {
         double init_x = Math.random() * MainRenderer.CONTENTS_W;
-        double init_y = Math.random() * MainRenderer.CONTENTS_H;
+        double init_y = Math.random() * 425.0f; // TODO: 木と葉っぱの位置から計算すること
 
 //        mStatus = STAT_WAITING;
         mPos.Set((float) init_x, (float) init_y);
