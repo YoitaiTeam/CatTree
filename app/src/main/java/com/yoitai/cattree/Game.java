@@ -134,10 +134,10 @@ public class Game {
         mMyRenderer.getTexture(TEXNO_WARTERING_POT).readTexture(mMainActivity, "watering_pot.png", 256, 230, 0.0f, 26.0f, 0.0f, -26.0f);
         mMyRenderer.getTexture(TEXNO_WARTERING_POT_FRAME).readTexture(mMainActivity, "watering_pot_frame.png", 256, 230, 0.0f, 26.0f, 0.0f, -26.0f);
         mMyRenderer.getTexture(TEXNO_SHOP).readTexture(mMainActivity, "shop.png", 128, 128, 0.0f, 0.0f, 0.0f, 0.0f);
-        mMyRenderer.getTexture(TEXNO_ALBUM01).readTexture(mMainActivity, "album.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
-        mMyRenderer.getTexture(TEXNO_ALBUM02).readTexture(mMainActivity, "album.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
-        mMyRenderer.getTexture(TEXNO_ALBUM03).readTexture(mMainActivity, "album.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
-        mMyRenderer.getTexture(TEXNO_ALBUM04).readTexture(mMainActivity, "album.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM01).readTexture(mMainActivity, "album_bg.png", 235, 150, 0.0f, 0.0f, -80.0f, -100.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM02).readTexture(mMainActivity, "album_bg.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM03).readTexture(mMainActivity, "album_bg.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM04).readTexture(mMainActivity, "album_bg.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
         mMyRenderer.getTexture(BTN_CLOSE01).readTexture(mMainActivity, "x.png", 60, 60, 0.0f, 0.0f, 280.0f, -120.0f);
         mMyRenderer.getTexture(TEXNO_LEAF).readTexture(mMainActivity, "cat_leaf.png", 170, 90, 85.0f, 45.0f, -85.0f, -45.0f);
 
