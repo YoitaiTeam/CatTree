@@ -90,7 +90,7 @@ public class Stage {
         float ay0 = _y - _h / 2;
         float ay1 = _y + _h / 2;
 
-//        if (ay0 < 0) return (true);
+        if (ay0 < 0) return (true);
         if (ay1 >= MainRenderer.CONTENTS_H) return (true);
         if (1 == 1) return false;
 
