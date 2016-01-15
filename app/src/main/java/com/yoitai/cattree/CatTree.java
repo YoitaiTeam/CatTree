@@ -55,6 +55,12 @@ public class CatTree {
         }
     }
 
+    public void setMenu(Menu _menu) {
+        for (int i = 0; i < CAT_MAX; i++) {
+            mCat[i].setMenu(_menu);
+        }
+    }
+
     public void frameFunction() {
         for (int i = 0; i < CAT_MAX; i++) {
             mCat[i].frameFunction();

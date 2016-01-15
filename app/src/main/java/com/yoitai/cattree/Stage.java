@@ -74,36 +74,14 @@ public class Stage {
 
         // MENU描画
         params = mMainView.getMainRenderer().allocDrawParams();
-        params.setSprite(Game.MENU01);
+        params.setSprite(Game.TEXNO_MENU01);
         params = mMainView.getMainRenderer().allocDrawParams();
-        params.setSprite(Game.MENU02);
+        params.setSprite(Game.TEXNO_MENU02);
+        params = mMainView.getMainRenderer().allocDrawParams();
+        params.setSprite(Game.TEXNO_MENU03);
+        params = mMainView.getMainRenderer().allocDrawParams();
+        params.setSprite(Game.TEXNO_MENU04);
 
-        // 障害物描画
-        /*int cnt = mBlockParams.length;
-        for (int i = 0; i < cnt; i++) {
-            BlockParams bp = mBlockParams[i];
-            float x = bp.mPosX - _x;
-            if ((x >= -109.0f) && (x <= MainRenderer.CONTENTS_W)) {
-                switch (bp.mType) {
-                    case BlockParams.TYPE_TOP: {
-                        // 上障害物
-                        params = mMainView.getMainRenderer().allocDrawParams();
-                        params.setSprite(Game.TEXNO_TBLOCK);
-                        params.getPos().X = bp.mPosX - _x;
-                        params.getPos().Y = bp.mPosY;
-                    }
-                    break;
-                    case BlockParams.TYPE_BOTTOM: {
-                        // 下障害物
-                        params = mMainView.getMainRenderer().allocDrawParams();
-                        params.setSprite(Game.TEXNO_BBLOCK);
-                        params.getPos().X = bp.mPosX - _x;
-                        params.getPos().Y = bp.mPosY;
-                    }
-                    break;
-                }
-            }
-        }*/
     }
 
     public boolean hitTest(float _x, float _y, float _w, float _h) {

@@ -16,6 +16,9 @@ public class Menu {
     public static final float ACCEL = 0.02f;        // 重力加速度
     public static final float PUSH_SPEED_Y = -5.0f;    // プッシュ時のスピード
 
+    public static final int MENU_OPEN = 1;
+    public static final int MENU_CLOSE = 0;
+
     // メンバ変数
     int mStatus;        // 状態
     Vector2 mPos;        // 位置
@@ -60,25 +63,37 @@ public class Menu {
             case DISP_CLOSE: {
 
                 // 待ち状態
-                if (touchOpenA()) {
-                    //mInput.checkStatus(Input.STATUS_DOWN) &&
+                if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenShop()) {
 
                     // 画面がタッチされた：開始へ
                     mStatus = DISP_OPEN;
-                    mPatternNo = Game.ALBUM01;
+                    mPatternNo = Game.TEXNO_ALBUM01;
                 }
-                if (touchOpenB()) {
+                if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenGoods()) {
+
+                    // 画面がタッチされた：開始へ
+                    mStatus = DISP_OPEN;
+                    mPatternNo = Game.TEXNO_ALBUM02;
+                }
+                if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenAlbum()) {
                     //mInput.checkStatus(Input.STATUS_DOWN) &&
 
                     // 画面がタッチされた：開始へ
                     mStatus = DISP_OPEN;
-                    mPatternNo = Game.ALBUM02;
+                    mPatternNo = Game.TEXNO_ALBUM03;
+                }
+                if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenActive()) {
+                    //mInput.checkStatus(Input.STATUS_DOWN) &&
+
+                    // 画面がタッチされた：開始へ
+                    mStatus = DISP_OPEN;
+                    mPatternNo = Game.TEXNO_ALBUM04;
                 }
             }
             break;
             case DISP_OPEN: {
                 //
-                if (touchCloseA()) {
+                if (mInput.checkStatus(Input.STATUS_DOWN) && touchCloseMenu()) {
                     // 他の画面がタッチされた：閉じる
                     mStatus = DISP_CLOSE;
                 }
@@ -104,27 +119,58 @@ public class Menu {
         mAccel.Set(0.0f, 0.0f);
     }
 
-    public boolean touchOpenA() {
+    public boolean touchOpenShop() {
         float x = mInput.getX();
         float y = mInput.getY();
 
-        if (x > 0 && x < 100 && Math.abs(y) < 64) return true;
+        if (x > 0 && x < 100 && Math.abs(y) > 550) return true;
         return false;
     }
 
-    public boolean touchOpenB() {
+    public boolean touchOpenGoods() {
         float x = mInput.getX();
         float y = mInput.getY();
 
-        if (x > 130 && x < 190 && Math.abs(y) < 64) return true;
+        if (x > 120 && x < 220 && Math.abs(y) > 550) return true;
         return false;
     }
 
-    public boolean touchCloseA() {
+    public boolean touchOpenAlbum() {
+        float x = mInput.getX();
+        float y = mInput.getY();
+//        Log.i("touchOpenA", mInput.getX() + " " + mInput.getY() +" "+Math.abs(y));
+
+        if (x > 240 && x < 340 && Math.abs(y) > 550) return true;
+        return false;
+    }
+
+    public boolean touchOpenActive() {
+        float x = mInput.getX();
+        float y = mInput.getY();
+
+        if (x > 360 && x < 460 && Math.abs(y) > 550) return true;
+        return false;
+    }
+
+    public boolean touchCloseMenu() {
         float x = mInput.getX();
         float y = mInput.getY();
 
         if (x > 400 && x < 460 && Math.abs(y) < 250 && Math.abs(y) > 210) return true;
+        return false;
+    }
+
+    // メニューの開閉状態チェック
+    public boolean isCloseMenu() {
+        // メニューを閉じている時
+        if (mStatus == MENU_CLOSE) {
+            return (true);
+        } else {
+            if (touchCloseMenu()) {
+                //メニュー閉じるボタンのみ
+                return (true);
+            }
+        }
         return false;
     }
 
@@ -142,8 +188,9 @@ public class Menu {
             params.setSprite(Game.BTN_CLOSE01);
             params.getPos().X = mPos.X;
             params.getPos().Y = mPos.Y;
+            mInput.mMenuStatus = MENU_OPEN;
         } else {
-
+            mInput.mMenuStatus = MENU_CLOSE;
         }
     }
 
