@@ -1,7 +1,15 @@
-package com.yoitai.cattree;
+package com.yoitai.cattree.object;
 
 import android.widget.Toast;
 
+import com.yoitai.cattree.CatTreeData;
+import com.yoitai.cattree.DrawParams;
+import com.yoitai.cattree.Game;
+import com.yoitai.cattree.Input;
+import com.yoitai.cattree.MainRenderer;
+import com.yoitai.cattree.MainView;
+import com.yoitai.cattree.Menu;
+import com.yoitai.cattree.Stage;
 import com.yoitai.cattree.object.Zaru;
 import com.yoitai.glib.Calc;
 import com.yoitai.glib.Vector2;

@@ -27,7 +27,7 @@ public class SePlayer {
         seMap.put(se, sePlayer.load(activity, se, 1));
     }
 
-    void play() {
+    public void play() {
         play(cat[(int) (Math.random() * cat.length)]);
     }
 
