@@ -75,12 +75,20 @@ public class Stage {
         // MENU描画
         params = mMainView.getMainRenderer().allocDrawParams();
         params.setSprite(Game.TEXNO_MENU01);
+        params.getScl().X = 0.4f;
+        params.getScl().Y = 0.3f;
         params = mMainView.getMainRenderer().allocDrawParams();
         params.setSprite(Game.TEXNO_MENU02);
+        params.getScl().X = 0.4f;
+        params.getScl().Y = 0.3f;
         params = mMainView.getMainRenderer().allocDrawParams();
         params.setSprite(Game.TEXNO_MENU03);
+        params.getScl().X = 0.4f;
+        params.getScl().Y = 0.3f;
         params = mMainView.getMainRenderer().allocDrawParams();
         params.setSprite(Game.TEXNO_MENU04);
+        params.getScl().X = 0.4f;
+        params.getScl().Y = 0.3f;
 
     }
 

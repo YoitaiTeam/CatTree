@@ -109,10 +109,10 @@ public class Game {
         // 各テクスチャ読み込み
         mMyRenderer.getTexture(TEXNO_BACK).readTexture(mMainActivity, "main_bg.png", 960, 1440, 0.0f, 0.0f, 0.0f, 0.0f);
         mMyRenderer.getTexture(TEXNO_CATTREE).readTexture(mMainActivity, "tree.png", 512, 512, 256.0f, 256.0f, 0.0f, 0.0f);
-        mMyRenderer.getTexture(TEXNO_MENU01).readTexture(mMainActivity, "menu_config_shop.png", 100, 100, 104.0f, 122.0f, 0.0f, 540.0f);
-        mMyRenderer.getTexture(TEXNO_MENU02).readTexture(mMainActivity, "menu_config_goods.png", 100, 100, 104.0f, 122.0f, 120.0f, 540.0f);
-        mMyRenderer.getTexture(TEXNO_MENU03).readTexture(mMainActivity, "menu_config_album.png", 100, 100, 104.0f, 122.0f, 240.0f, 540.0f);
-        mMyRenderer.getTexture(TEXNO_MENU04).readTexture(mMainActivity, "menu_config_active.png", 100, 100, 104.0f, 122.0f, 360.0f, 540.0f);
+        mMyRenderer.getTexture(TEXNO_MENU01).readTexture(mMainActivity, "menu_config_shop.png", 250, 250, 0.0f, 55.0f, 0.0f, 540.0f);
+        mMyRenderer.getTexture(TEXNO_MENU02).readTexture(mMainActivity, "menu_config_goods.png", 250, 250, 0.0f, 55.0f, 120.0f, 540.0f);
+        mMyRenderer.getTexture(TEXNO_MENU03).readTexture(mMainActivity, "menu_config_album.png", 250, 250, 0.0f, 55.0f, 240.0f, 540.0f);
+        mMyRenderer.getTexture(TEXNO_MENU04).readTexture(mMainActivity, "menu_config_active.png", 250, 250, 0.0f, 55.0f, 360.0f, 540.0f);
         mMyRenderer.getTexture(TEXNO_WOOD_STEM).readTexture(mMainActivity, "wood_stem.png", 850, 1012, 425.0f, 506.0f, -425.0f, -506.0f);
         mMyRenderer.getTexture(TEXNO_WOOD_LEAF).readTexture(mMainActivity, "wood_leaf.png", 850, 1012, 425.0f, 506.0f, -425.0f, -506.0f);
         mMyRenderer.getTexture(TEXNO_ZARU).readTexture(mMainActivity, "zaru.png", Zaru.WIDTH, Zaru.HEIGHT, 120.0f, 115.0f, -120.0f, -115.0f);

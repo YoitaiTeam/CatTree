@@ -180,6 +180,8 @@ public class Menu {
             params.setSprite(mPatternNo);
             params.getPos().X = mPos.X;
             params.getPos().Y = mPos.Y;
+            params.getScl().X = 0.4f;
+            params.getScl().Y = 0.3f;
             params = mMainView.getMainRenderer().allocDrawParams();
             params.setSprite(Game.BTN_CLOSE01);
             params.getPos().X = mPos.X;
