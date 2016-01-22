@@ -1,5 +1,6 @@
 package com.yoitai.cattree.object;
 
+import com.yoitai.cattree.CatTreeData;
 import com.yoitai.cattree.DrawParams;
 import com.yoitai.cattree.Game;
 import com.yoitai.cattree.Input;
@@ -17,6 +18,9 @@ public class WateringPot {
     public static final int STAT_FILL = 1;
     public static final int STAT_REMAIN = 2;
 
+    // 定数
+    static final float LIMIT_TIME = 10.0f * 1000.0f;
+
     // メンバ変数
     int mPatternNo;
     int mStatus;        // 状態
@@ -25,6 +29,7 @@ public class WateringPot {
     MainView mMainView; // MainView
     Input mInput;       // 入力
     int mFrameNo;       // フレーム番号
+    long mPouredTime;   // 水を注いだ時間
 
     // コンストラクタ
     public WateringPot() {
@@ -43,6 +48,10 @@ public class WateringPot {
         mInput = _input;
     }
 
+    public void setPouredTime(long _time) {
+        poureWater(_time);
+    }
+
     // 毎フレーム処理
     public void frameFunction() {
         switch (mStatus) {
@@ -52,8 +61,10 @@ public class WateringPot {
                     // 画面がタッチされた：水を補充する
                     mStatus = STAT_FILL;
                     mMainView.getSePlayer().play(R.raw.pour);
+                    poureWater(System.currentTimeMillis());
                 } else if (mPatternNo == Game.TEXNO_POT_FILL) {
-                    mWaterLevel = Math.max(--mWaterLevel, 0);
+                    mWaterLevel = (1 - ((System.currentTimeMillis() - mPouredTime) / LIMIT_TIME)) * 100.0f;
+                    mWaterLevel = Math.max(mWaterLevel, 0.0f);
                 }
             }
             break;
@@ -82,6 +93,15 @@ public class WateringPot {
 
     boolean touchTest() {
         return (Math.abs(mInput.getX() - mPos.X) < 62.5 && Math.abs(mInput.getY() - mPos.Y) < 61.25);
+    }
+
+    void poureWater(long _time) {
+        CatTreeData.setLong(CatTreeData.POURED_TIME, _time);
+        mPouredTime = _time;
+    }
+
+    float residualQuantity() {
+        return mWaterLevel;
     }
 
     public void setPatternNo(int _no) {

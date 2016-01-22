@@ -1,4 +1,11 @@
-package com.yoitai.cattree;
+package com.yoitai.cattree.object;
+
+import com.yoitai.cattree.CatTreeData;
+import com.yoitai.cattree.Game;
+import com.yoitai.cattree.Input;
+import com.yoitai.cattree.MainView;
+import com.yoitai.cattree.Menu;
+import com.yoitai.cattree.Stage;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,15 +19,16 @@ public class CatTree {
     MainView mMainView; // MainView
     Input mInput;       // 入力
     Stage mStage;       // ステージ
+    WateringPot mWateringPot; // ポット
 
     private final int CAT_MAX = 20;  // 画面に表示する猫の最大数
-    private final int CAT_GROW_INTERVAL = 5;
+    private final int CAT_GROW_INTERVAL = 1;
 
     Cat[] mCat;
     Set mAliveCat = new HashSet();
     long mLastGrowTime;
 
-    CatTree() {
+    public CatTree() {
         mCat = new Cat[CAT_MAX];
         for (int i = 0; i < CAT_MAX; i++) {
             mCat[i] = new Cat();
@@ -61,10 +69,16 @@ public class CatTree {
         }
     }
 
+    public void setWateringPot(WateringPot _pot) {
+        mWateringPot = _pot;
+    }
+
     public void frameFunction() {
         for (int i = 0; i < CAT_MAX; i++) {
             mCat[i].frameFunction();
         }
+        if (mWateringPot.residualQuantity() == 0.0f) return; // 水が空なら猫は生えない
+
         if ((System.currentTimeMillis() - mLastGrowTime) / 1000 > CAT_GROW_INTERVAL) {
             mLastGrowTime = System.currentTimeMillis();
             for (int i = 0; i < CAT_MAX; i++) {

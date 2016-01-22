@@ -9,7 +9,8 @@ public class CatTreeData {
 
     static SharedPreferences mData;
 
-    static String POINT = "CatTreePoint";
+    public static String POINT = "CatTreePoint";
+    public static String POURED_TIME = "CatTreePouredTime";
     static String INSTALL_DATE;
     static String PLAY_TIME;
     static String LAST_VISIT;
@@ -28,13 +29,23 @@ public class CatTreeData {
                 .apply();
     }
 
-    static int getInt(String _key, int _default) {
+    public static int getInt(String _key, int _default) {
         return mData.getInt(_key, _default);
     }
 
-    static void setInt(String _key, int _value) {
+    public static void setInt(String _key, int _value) {
         mData.edit()
                 .putInt(_key, _value)
+                .apply();
+    }
+
+    public static long getLong(String _key, long _default) {
+        return mData.getLong(_key, _default);
+    }
+
+    public static void setLong(String _key, long _value) {
+        mData.edit()
+                .putLong(_key, _value)
                 .apply();
     }
 }
