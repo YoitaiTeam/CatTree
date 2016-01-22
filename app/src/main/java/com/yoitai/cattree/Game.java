@@ -2,6 +2,7 @@ package com.yoitai.cattree;
 
 import android.media.MediaPlayer;
 
+import com.yoitai.cattree.object.CatTree;
 import com.yoitai.cattree.object.WateringPot;
 import com.yoitai.cattree.object.Zaru;
 
@@ -95,6 +96,7 @@ public class Game {
         mCatTree.setInput(mInput);
         mCatTree.setStage(mStage);
         mCatTree.setMenu(mMenu);
+        mCatTree.setWateringPot(mWateringPot[0]);
         mShop.setView(_view);
         mShop.setInput(mInput);
 
@@ -158,8 +160,10 @@ public class Game {
         mBgmPlayer.setLooping(true);
         mBgmPlayer.start();
 
-        // データベース初期化
+        // データベース初期化と初期データセット
         CatTreeData.init(mMainActivity);
+        mWateringPot[0].setPouredTime(CatTreeData.getLong(CatTreeData.POURED_TIME, 0));
+        mWateringPot[1].setPouredTime(CatTreeData.getLong(CatTreeData.POURED_TIME, 0));
     }
 
     // 毎フレーム処理(FPS毎にMainThreadから呼ばれます)
