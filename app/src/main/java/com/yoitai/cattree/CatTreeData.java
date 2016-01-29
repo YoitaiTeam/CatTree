@@ -10,6 +10,7 @@ public class CatTreeData {
     static SharedPreferences mData;
 
     public static String POINT = "CatTreePoint";
+    public static String ALBUM = "CatTreeAlbum";
     public static String POURED_TIME = "CatTreePouredTime";
     static String INSTALL_DATE;
     static String PLAY_TIME;

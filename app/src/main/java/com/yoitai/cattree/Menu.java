@@ -1,5 +1,7 @@
 package com.yoitai.cattree;
 
+import android.util.Log;
+
 import com.yoitai.glib.Vector2;
 
 /**
@@ -17,12 +19,14 @@ public class Menu {
     MainView mMainView; // MainView
     Input mInput;       // 入力
     Stage mStage;       // ステージ
+    Album mAlbum; //アルバム
     int mFrameNo;       // フレーム番号
     int mPatternNo;    // パターン番号
     static boolean isBusy;
 
     // コンストラクタ
     public Menu() {
+        mAlbum = new Album();
         mStatus = MENU_CLOSE;
         double init_x = MainRenderer.CONTENTS_W / 4;
         double init_y = MainRenderer.CONTENTS_H / 2;
@@ -34,10 +38,12 @@ public class Menu {
     // setter
     public void setView(MainView _view) {
         mMainView = _view;
+        mAlbum.setView(_view);
     }
 
     public void setInput(Input _input) {
         mInput = _input;
+    //    mAlbum.setInput(_input);
     }
 
     public void setStage(Stage _stage) {
@@ -55,6 +61,8 @@ public class Menu {
                     mStatus = MENU_OPEN;
                     mPatternNo = Game.TEXNO_ALBUM01;
                     isBusy(mStatus);
+                    mAlbum.frameFunction();
+
 
                 } else if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenGoods()) {
                     // グッズ
@@ -78,6 +86,7 @@ public class Menu {
             }
             break;
             case MENU_OPEN: {
+
                 // メニューを閉じる＆音
                 if (mInput.checkStatus(Input.STATUS_DOWN) && touchCloseMenu()) {
                     // 他の画面がタッチされた：閉じる
@@ -151,8 +160,8 @@ public class Menu {
     public boolean touchCloseMenu() {
         float x = mInput.getX();
         float y = mInput.getY();
-
-        if (x > 400 && x < 460 && Math.abs(y) < 250 && Math.abs(y) > 210) return true;
+        Log.i("touchCloseMenu",x+" "+y);
+        if (x > 240 && x < 280 && Math.abs(y) < 550 && Math.abs(y) > 510) return true;
         return false;
     }
 
@@ -178,15 +187,17 @@ public class Menu {
 
             params = mMainView.getMainRenderer().allocDrawParams();
             params.setSprite(mPatternNo);
+            //params.setSprite(Game.TEXNO_ALBUM_PARTS1);
             params.getPos().X = mPos.X;
             params.getPos().Y = mPos.Y;
-            params.getScl().X = 0.4f;
-            params.getScl().Y = 0.3f;
+            params.getScl().X = 0.55f;
+            params.getScl().Y = 0.45f;
             params = mMainView.getMainRenderer().allocDrawParams();
             params.setSprite(Game.BTN_CLOSE01);
             params.getPos().X = mPos.X;
             params.getPos().Y = mPos.Y;
             mInput.mMenuStatus = MENU_OPEN;
+            mAlbum.draw();
         } else {
             mInput.mMenuStatus = MENU_CLOSE;
         }

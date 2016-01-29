@@ -183,4 +183,15 @@ public class Cat {
 
         }
     }
+
+    void addAlbum(int catno) {
+        try {
+            int album = CatTreeData.getInt(CatTreeData.ALBUM + catno, 0); //ある猫の取得数をget
+            CatTreeData.setInt(CatTreeData.ALBUM + catno, ++album);
+            toast.setText(album + "ポイントゲットにゃ！");
+            toast.show();
+        } catch (Exception e) {
+
+        }
+    }
 }

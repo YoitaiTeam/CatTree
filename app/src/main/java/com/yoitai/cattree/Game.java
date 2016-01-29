@@ -30,6 +30,8 @@ public class Game {
     public static final int TEXNO_LEAF = 16;        // 草
     public static final int TEXNO_ALBUM03 = 17;           // アルバム4
     public static final int TEXNO_ALBUM04 = 18;           // アルバム4
+    public static final int TEXNO_ALBUM_PARTS1 = 19;
+    public static final int TEXNO_ALBUM_PARTS2 = 20;
     public static final int TEXNO_BASE_CAT = 100;   // 猫TEXTNOのベース
     public static final int TEXNO_CAT0 = 101;       // まいどさん
     public static final int TEXNO_CAT1 = 102;       // ぐれいさん
@@ -60,23 +62,26 @@ public class Game {
     Menu mMenu;
     Input mInput;
 
+
     // 内容が変化するゲーム情報
     long mFrameNo;
     Stage mStage;
     CatTree mCatTree;
     Shop mShop;
     WateringPot[] mWateringPot = new WateringPot[2];
+    //Album mAlbum;
 
     // コンストラクタ
     public Game() {
         mStage = new Stage();
         mCatTree = new CatTree();
-        mShop = new Shop();
+        //mShop = new Shop();
         mWateringPot[0] = new WateringPot();
         mWateringPot[0].setPatternNo(Game.TEXNO_POT_FILL);
         mWateringPot[1] = new WateringPot();
         mWateringPot[1].setPatternNo(Game.TEXNO_POT_EMPTY);
         mMenu = new Menu();
+        //mAlbum = new Album();
     }
 
     // viewの設定
@@ -97,8 +102,8 @@ public class Game {
         mCatTree.setStage(mStage);
         mCatTree.setMenu(mMenu);
         mCatTree.setWateringPot(mWateringPot[0]);
-        mShop.setView(_view);
-        mShop.setInput(mInput);
+        //mShop.setView(_view);
+        //mShop.setInput(mInput);
 
         mWateringPot[0].setView(_view);
         mWateringPot[0].setInput(mInput);
@@ -141,11 +146,13 @@ public class Game {
         mMyRenderer.getTexture(TEXNO_POT_FILL).readTexture(mMainActivity, "pot_fill.png", 250, 205, 125.0f, 102.5f, -125.0f, -102.5f);
         mMyRenderer.getTexture(TEXNO_POT_EMPTY).readTexture(mMainActivity, "pot_empty.png", 250, 205, 125.0f, 102.5f, -125.0f, -102.5f);
         mMyRenderer.getTexture(TEXNO_SHOP).readTexture(mMainActivity, "shop.png", 128, 128, 0.0f, 0.0f, 0.0f, 0.0f);
-        mMyRenderer.getTexture(TEXNO_ALBUM01).readTexture(mMainActivity, "album_bg.png", 235, 150, 0.0f, 0.0f, -80.0f, -100.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM01).readTexture(mMainActivity, "album_bg.png", 2048, 1092, 0.0f, 0.0f, -110.0f, -280.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS1).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS2).readTexture(mMainActivity, "album_ph_no_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
         mMyRenderer.getTexture(TEXNO_ALBUM02).readTexture(mMainActivity, "album_bg.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
         mMyRenderer.getTexture(TEXNO_ALBUM03).readTexture(mMainActivity, "album_bg.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
         mMyRenderer.getTexture(TEXNO_ALBUM04).readTexture(mMainActivity, "album_bg.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
-        mMyRenderer.getTexture(BTN_CLOSE01).readTexture(mMainActivity, "x.png", 60, 60, 0.0f, 0.0f, 280.0f, -120.0f);
+        mMyRenderer.getTexture(BTN_CLOSE01).readTexture(mMainActivity, "x.png", 60, 60, 0.0f, 0.0f, 90.0f, 180.0f);
         mMyRenderer.getTexture(TEXNO_LEAF).readTexture(mMainActivity, "cat_leaf.png", 170, 90, 85.0f, 45.0f, -85.0f, -45.0f);
 
         // 各SE読み込み
@@ -176,7 +183,7 @@ public class Game {
         mCatTree.frameFunction();
 
         // お店のフレーム処理
-        mShop.frameFunction();
+        //mShop.frameFunction();
 
         // じょうろ描画
         mWateringPot[0].frameFunction();
@@ -198,7 +205,7 @@ public class Game {
         // ねこのなる木描画
         mCatTree.draw();
         // お店描画
-        mShop.draw();
+        //mShop.draw();
 
         // じょうろ描画
         mWateringPot[0].draw();
@@ -206,5 +213,6 @@ public class Game {
 
         // メニュー描画
         mMenu.draw();
+        //mAlbum.draw();
     }
 }
