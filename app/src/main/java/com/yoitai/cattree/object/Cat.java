@@ -10,7 +10,6 @@ import com.yoitai.cattree.MainRenderer;
 import com.yoitai.cattree.MainView;
 import com.yoitai.cattree.Menu;
 import com.yoitai.cattree.Stage;
-import com.yoitai.glib.Calc;
 import com.yoitai.glib.Vector2;
 
 // キャラクタ管理クラス
@@ -21,34 +20,30 @@ public class Cat {
     public static final int STAT_DEAD = 2;
 
     // パラメータ
-    public static final float SPEED = 2.0f;            // キャラ横方向スピード
     public static final float ACCEL = 0.02f;        // 重力加速度
-    public static final float PUSH_SPEED_Y = -5.0f;    // プッシュ時のスピード
 
     // メンバ変数
     int mStatus;        // 状態
-    Vector2 mPos;        // 位置
-    Vector2 mSpeed;    // スピード
-    Vector2 mAccel;    // 加速度
+    Vector2 mPos;       // 位置
+    Vector2 mSpeed;     // スピード
+    Vector2 mAccel;     // 加速度
     MainView mMainView; // MainView
     Input mInput;       // 入力
     Stage mStage;       // ステージ
     Menu mMenu;         // メニュー
     int mFrameNo;       // フレーム番号
-    int mPatternNo;    // パターン番号
-    float mRandamSpeed;
+    int mPatternNo;     // パターン番号
     Toast toast;
+    int mFlameX;
+    float mFlameScl;
 
     // コンストラクタ
     public Cat() {
         mStatus = STAT_DEAD;
-        mRandamSpeed = (float) Math.random() * 10 * (Math.random() * 10 < 5 ? 1 : -1);
         double init_x = Math.random() * MainRenderer.CONTENTS_W;
-//        double init_x = MainRenderer.CONTENTS_W / 4;
         double init_y = Math.random() * MainRenderer.CONTENTS_H;
-//        double init_y = MainRenderer.CONTENTS_H / 2;
         mPos = new Vector2((float) init_x, (float) init_y);
-        mSpeed = new Vector2(mRandamSpeed, 0.0f);
+        mSpeed = new Vector2(0.0f, 0.0f);
         mAccel = new Vector2(0.0f, 0.0f);
         mFrameNo = 0;
     }
@@ -81,8 +76,9 @@ public class Cat {
                     mStatus = STAT_PLAYING;
                     // タッチされたら鳴く
                     mMainView.getSePlayer().play();
-                    // ポイントも付与する
-//                    addPoint();
+                }
+                if (mFlameScl < 1.0f) {
+                    mFlameScl += 0.03f;
                 }
             }
             break;
@@ -91,7 +87,7 @@ public class Cat {
                 mPos.Add(mSpeed);
                 if (mStage.hitTest(mPos.X, mPos.Y, 32.0f, 32.0f)) {
                     // 衝突した：状態を死亡へ
-                    mStatus = STAT_DEAD;
+//                    mStatus = STAT_DEAD;
                 }
                 if (Zaru.histTest(mPos.X, mPos.Y, 32.0f, 32.0f, 0.5f, 0.5f)) {
                     mStatus = STAT_DEAD;
@@ -99,11 +95,18 @@ public class Cat {
                     addPoint();
                 }
 
-                // 加速度によるスピード補正
-                mSpeed.Add(mAccel);
-
                 // 重力による加速度の補正
-                mAccel.Y += ACCEL;
+                if (Math.abs(Zaru.POS_X - mPos.X) > 5) {
+                    mSpeed.Set(
+                            (Zaru.POS_X - mPos.X) > 0 ? 5.0f : -5.0f,
+                            (float) (Math.sin((mFlameX++ * 0.2f) % 360) - Math.sin(((mFlameX - 1) * 0.2f) % 360) * 3.0f)
+                    );
+                } else {
+                    // 加速度によるスピード補正
+                    mSpeed.Add(mAccel);
+                    mAccel.X = mSpeed.X * -1;
+                    mAccel.Y += ACCEL;
+                }
             }
             break;
             case STAT_DEAD: {
@@ -127,11 +130,10 @@ public class Cat {
         params.setSprite(mPatternNo);
         params.getPos().X = mPos.X;
         params.getPos().Y = mPos.Y;
-        params.getScl().X = 0.5f;
-        params.getScl().Y = 0.5f;
+        params.getScl().X = 0.5f * mFlameScl;
+        params.getScl().Y = 0.5f * mFlameScl;
         params.getOfs().X = 100.0f;
         params.getOfs().Y = 100.0f;
-//        params.setRot(Calc.CalcAngleRad(mSpeed.X, mSpeed.Y / 8, false));
 
         if (mStatus == STAT_PLAYING) return;
         // くさ
@@ -143,7 +145,6 @@ public class Cat {
         params.getScl().Y = 0.5f;
         params.getOfs().X = 100.0f;
         params.getOfs().Y = 100.0f;
-        params.setRot(Calc.CalcAngleRad(mSpeed.X, mSpeed.Y / 8, false));
 
     }
 
@@ -151,6 +152,8 @@ public class Cat {
         if (mStatus != STAT_DEAD) return false;
         mPatternNo = _texno;
         mStatus = STAT_WAITING;
+        mFlameX = 0;
+        mFlameScl = 0.5f;
         return true;
     }
 
@@ -161,7 +164,7 @@ public class Cat {
 
 //        mStatus = STAT_WAITING;
         mPos.Set((float) init_x, (float) init_y);
-        mSpeed.Set(mRandamSpeed, 0.0f);
+        mSpeed.Set(0.0f, 0.0f);
         mAccel.Set(0.0f, 0.0f);
     }
 
