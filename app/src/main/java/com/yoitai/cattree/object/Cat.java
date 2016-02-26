@@ -1,7 +1,9 @@
 package com.yoitai.cattree.object;
 
+import android.util.Log;
 import android.widget.Toast;
 
+import com.yoitai.cattree.CatList;
 import com.yoitai.cattree.CatTreeData;
 import com.yoitai.cattree.DrawParams;
 import com.yoitai.cattree.Game;
@@ -82,6 +84,7 @@ public class Cat {
                     // タッチされたら鳴く
                     mMainView.getSePlayer().play();
                     // ポイントも付与する
+//                    addAlbum(mPatternNo);
 //                    addPoint();
                 }
             }
@@ -96,6 +99,7 @@ public class Cat {
                 if (Zaru.histTest(mPos.X, mPos.Y, 32.0f, 32.0f, 0.5f, 0.5f)) {
                     mStatus = STAT_DEAD;
                     // ポイントも付与する
+                    addAlbum();
                     addPoint();
                 }
 
@@ -176,9 +180,20 @@ public class Cat {
     void addPoint() {
         try {
             int point = CatTreeData.getInt(CatTreeData.POINT, 0);
+            String name = CatList.getCatName(mPatternNo);
+            Log.i("addAlbum", "テスト："+name);
             CatTreeData.setInt(CatTreeData.POINT, ++point);
-            toast.setText(point + "ポイントゲットにゃ！");
+            toast.setText(name + point + "ポイントゲットにゃ！");
             toast.show();
+        } catch (Exception e) {
+
+        }
+    }
+
+    void addAlbum() {
+        try {
+            int album = CatTreeData.getInt(CatTreeData.ALBUM + mPatternNo, 0); //ある猫の取得数をget
+            CatTreeData.setInt(CatTreeData.ALBUM + mPatternNo, ++album);
         } catch (Exception e) {
 
         }

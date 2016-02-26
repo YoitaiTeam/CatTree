@@ -1,45 +1,36 @@
 package com.yoitai.cattree;
 
+import android.util.Log;
+
 import com.yoitai.glib.Vector2;
 
 /**
  * Created by yuarak on 2015/12/04.
  */
 public class Menu {
+
     // 状態
-    public static final int DISP_CLOSE = 0;
-    public static final int DISP_OPEN = 1;
-    public static final int DISP_SELECT = 2;
-
-    // パラメータ
-    public static final float SPEED = 2.0f;            // キャラ横方向スピード
-    public static final float ACCEL = 0.02f;        // 重力加速度
-    public static final float PUSH_SPEED_Y = -5.0f;    // プッシュ時のスピード
-
-    public static final int MENU_OPEN = 1;
-    public static final int MENU_CLOSE = 0;
+    public static final int MENU_OPEN = 1; //メニューが開いている
+    public static final int MENU_CLOSE = 0; //メニューが閉じている
 
     // メンバ変数
     int mStatus;        // 状態
     Vector2 mPos;        // 位置
-    Vector2 mSpeed;    // スピード
-    Vector2 mAccel;    // 加速度
     MainView mMainView; // MainView
     Input mInput;       // 入力
     Stage mStage;       // ステージ
+    Album mAlbum; //アルバム
     int mFrameNo;       // フレーム番号
     int mPatternNo;    // パターン番号
+    static boolean isBusy;
 
     // コンストラクタ
     public Menu() {
-        mStatus = DISP_CLOSE;
-//        double init_x = Math.random() * MainRenderer.CONTENTS_W;
+        mAlbum = new Album();
+        mStatus = MENU_CLOSE;
         double init_x = MainRenderer.CONTENTS_W / 4;
-//        double init_y = Math.random() * MainRenderer.CONTENTS_H;
         double init_y = MainRenderer.CONTENTS_H / 2;
         mPos = new Vector2((float) init_x, (float) init_y);
-        mSpeed = new Vector2(SPEED, 0.0f);
-        mAccel = new Vector2(0.0f, 0.0f);
         mFrameNo = 0;
         mPatternNo = 10;
     }
@@ -47,10 +38,12 @@ public class Menu {
     // setter
     public void setView(MainView _view) {
         mMainView = _view;
+        mAlbum.setView(_view);
     }
 
     public void setInput(Input _input) {
         mInput = _input;
+    //    mAlbum.setInput(_input);
     }
 
     public void setStage(Stage _stage) {
@@ -60,52 +53,65 @@ public class Menu {
     // 毎フレーム処理
     public void frameFunction() {
         switch (mStatus) {
-            case DISP_CLOSE: {
+            case MENU_CLOSE: {
 
-                // 待ち状態
+                // 各種メニューを開く＆音
                 if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenShop()) {
-
-                    // 画面がタッチされた：開始へ
-                    mStatus = DISP_OPEN;
+                    // お店
+                    mStatus = MENU_OPEN;
                     mPatternNo = Game.TEXNO_ALBUM01;
-                }
-                if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenGoods()) {
+                    isBusy(mStatus);
 
-                    // 画面がタッチされた：開始へ
-                    mStatus = DISP_OPEN;
+                } else if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenGoods()) {
+                    // グッズ
+                    mStatus = MENU_OPEN;
                     mPatternNo = Game.TEXNO_ALBUM02;
-                }
-                if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenAlbum()) {
-                    //mInput.checkStatus(Input.STATUS_DOWN) &&
+                    isBusy(mStatus);
 
-                    // 画面がタッチされた：開始へ
-                    mStatus = DISP_OPEN;
+                } else if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenAlbum()) {
+                    // 猫アルバム
+                    mStatus = MENU_OPEN;
                     mPatternNo = Game.TEXNO_ALBUM03;
-                }
-                if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenActive()) {
-                    //mInput.checkStatus(Input.STATUS_DOWN) &&
+                    isBusy(mStatus);
+                    mAlbum.frameFunction();
 
-                    // 画面がタッチされた：開始へ
-                    mStatus = DISP_OPEN;
+                } else if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenActive()) {
+                    // 設定
+                    mStatus = MENU_OPEN;
                     mPatternNo = Game.TEXNO_ALBUM04;
+                    isBusy(mStatus);
                 }
+
             }
             break;
-            case DISP_OPEN: {
-                //
+            case MENU_OPEN: {
+
+                // メニューを閉じる＆音
                 if (mInput.checkStatus(Input.STATUS_DOWN) && touchCloseMenu()) {
                     // 他の画面がタッチされた：閉じる
-                    mStatus = DISP_CLOSE;
+                    mStatus = MENU_CLOSE;
+                    isBusy(mStatus);
                 }
             }
             break;
-            /*case DISP_SELECT: {
-                //
-            }
-            break;*/
+        }
+        isBusy = false;
+        mFrameNo++;
+    }
+
+    // メニューの開閉時の音
+    boolean isBusy(int mode) {
+
+        if (!isBusy && mode == MENU_CLOSE) {
+            mMainView.getSePlayer().play(R.raw.open);
+            isBusy = true;
+
+        } else if (!isBusy && mode == MENU_OPEN) {
+            mMainView.getSePlayer().play(R.raw.close);
+            isBusy = true;
         }
 
-        mFrameNo++;
+        return true;
     }
 
     // ゲームリセット
@@ -113,10 +119,8 @@ public class Menu {
         double init_x = Math.random() * MainRenderer.CONTENTS_W;
         double init_y = Math.random() * MainRenderer.CONTENTS_H;
 
-        mStatus = DISP_CLOSE;
+        mStatus = MENU_CLOSE;
         mPos.Set((float) init_x, (float) init_y);
-        mSpeed.Set(SPEED, 0.0f);
-        mAccel.Set(0.0f, 0.0f);
     }
 
     public boolean touchOpenShop() {
@@ -155,8 +159,8 @@ public class Menu {
     public boolean touchCloseMenu() {
         float x = mInput.getX();
         float y = mInput.getY();
-
-        if (x > 400 && x < 460 && Math.abs(y) < 250 && Math.abs(y) > 210) return true;
+        Log.i("touchCloseMenu",x+" "+y);
+        if (x > 240 && x < 280 && Math.abs(y) < 550 && Math.abs(y) > 510) return true;
         return false;
     }
 
@@ -178,17 +182,20 @@ public class Menu {
     public void draw() {
         DrawParams params;
 
-        if (mStatus == DISP_OPEN) {
+        if (mStatus == MENU_OPEN) {
 
             params = mMainView.getMainRenderer().allocDrawParams();
             params.setSprite(mPatternNo);
             params.getPos().X = mPos.X;
             params.getPos().Y = mPos.Y;
+            params.getScl().X = 0.55f;
+            params.getScl().Y = 0.45f;
             params = mMainView.getMainRenderer().allocDrawParams();
             params.setSprite(Game.BTN_CLOSE01);
             params.getPos().X = mPos.X;
             params.getPos().Y = mPos.Y;
             mInput.mMenuStatus = MENU_OPEN;
+            mAlbum.draw();
         } else {
             mInput.mMenuStatus = MENU_CLOSE;
         }
