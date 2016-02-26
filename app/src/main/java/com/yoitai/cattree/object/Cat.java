@@ -40,11 +40,10 @@ public class Cat {
     // コンストラクタ
     public Cat() {
         mStatus = STAT_DEAD;
-        double init_x = Math.random() * MainRenderer.CONTENTS_W;
-        double init_y = Math.random() * MainRenderer.CONTENTS_H;
-        mPos = new Vector2((float) init_x, (float) init_y);
-        mSpeed = new Vector2(0.0f, 0.0f);
-        mAccel = new Vector2(0.0f, 0.0f);
+        mPos = new Vector2();
+        mSpeed = new Vector2();
+        mAccel = new Vector2();
+        init();
         mFrameNo = 0;
     }
 
@@ -92,7 +91,7 @@ public class Cat {
                 if (Zaru.histTest(mPos.X, mPos.Y, 32.0f, 32.0f, 0.5f, 0.5f)) {
                     mStatus = STAT_DEAD;
                     // ポイントも付与する
-                    addPoint();
+                    harvest();
                 }
 
                 // 重力による加速度の補正
@@ -112,7 +111,7 @@ public class Cat {
             case STAT_DEAD: {
                 // 死亡：初期化
 //                mPatternNo = Game.TEXNO_CHAR0;
-                reset();
+                init();
             }
             break;
         }
@@ -157,8 +156,8 @@ public class Cat {
         return true;
     }
 
-    // ゲームリセット
-    void reset() {
+    // キャラ初期化
+    void init() {
         double init_x = Math.random() * MainRenderer.CONTENTS_W;
         double init_y = Math.random() * 425.0f; // TODO: 木と葉っぱの位置から計算すること
 
@@ -176,7 +175,21 @@ public class Cat {
         return false;
     }
 
-    void addPoint() {
+    private void harvest() {
+        managedCrops(CatTreeData.CROP_SUBTRACT);
+        addPoint();
+    }
+
+    private void managedCrops(int _cal) {
+        try {
+            int yields = CatTreeData.getInt(CatTreeData.CROP_YIELDS, 0);
+            CatTreeData.setInt(CatTreeData.CROP_YIELDS, yields + _cal);
+        } catch (Exception e) {
+
+        }
+    }
+
+    private void addPoint() {
         try {
             int point = CatTreeData.getInt(CatTreeData.POINT, 0);
             CatTreeData.setInt(CatTreeData.POINT, ++point);
