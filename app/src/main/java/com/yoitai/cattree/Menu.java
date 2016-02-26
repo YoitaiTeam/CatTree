@@ -61,8 +61,6 @@ public class Menu {
                     mStatus = MENU_OPEN;
                     mPatternNo = Game.TEXNO_ALBUM01;
                     isBusy(mStatus);
-                    mAlbum.frameFunction();
-
 
                 } else if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenGoods()) {
                     // グッズ
@@ -75,6 +73,7 @@ public class Menu {
                     mStatus = MENU_OPEN;
                     mPatternNo = Game.TEXNO_ALBUM03;
                     isBusy(mStatus);
+                    mAlbum.frameFunction();
 
                 } else if (mInput.checkStatus(Input.STATUS_DOWN) && touchOpenActive()) {
                     // 設定
@@ -187,7 +186,6 @@ public class Menu {
 
             params = mMainView.getMainRenderer().allocDrawParams();
             params.setSprite(mPatternNo);
-            //params.setSprite(Game.TEXNO_ALBUM_PARTS1);
             params.getPos().X = mPos.X;
             params.getPos().Y = mPos.Y;
             params.getScl().X = 0.55f;
