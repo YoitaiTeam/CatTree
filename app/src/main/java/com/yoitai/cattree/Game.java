@@ -30,6 +30,7 @@ public class Game {
     public static final int TEXNO_LEAF = 16;        // 草
     public static final int TEXNO_ALBUM03 = 17;           // アルバム4
     public static final int TEXNO_ALBUM04 = 18;           // アルバム4
+    public static final int TEXNO_SETTINGS = 19;    // 設定
     public static final int TEXNO_BASE_CAT = 100;   // 猫TEXTNOのベース
     public static final int TEXNO_CAT0 = 101;       // まいどさん
     public static final int TEXNO_CAT1 = 102;       // ぐれいさん
@@ -147,6 +148,7 @@ public class Game {
         mMyRenderer.getTexture(TEXNO_ALBUM04).readTexture(mMainActivity, "album.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
         mMyRenderer.getTexture(BTN_CLOSE01).readTexture(mMainActivity, "x.png", 60, 60, 0.0f, 0.0f, 280.0f, -120.0f);
         mMyRenderer.getTexture(TEXNO_LEAF).readTexture(mMainActivity, "cat_leaf.png", 170, 90, 85.0f, 45.0f, -85.0f, -45.0f);
+        mMyRenderer.getTexture(TEXNO_SETTINGS).readTexture(mMainActivity, "settings.png", 512, 470, 256.0f, 235.0f, -256.0f, -235.0f);
 
         // 各SE読み込み
         mSePlayer.initialize(mMainActivity);
@@ -164,6 +166,7 @@ public class Game {
         CatTreeData.init(mMainActivity);
         mWateringPot[0].setPouredTime(CatTreeData.getLong(CatTreeData.POURED_TIME, 0));
         mWateringPot[1].setPouredTime(CatTreeData.getLong(CatTreeData.POURED_TIME, 0));
+        mCatTree.init();
     }
 
     // 毎フレーム処理(FPS毎にMainThreadから呼ばれます)

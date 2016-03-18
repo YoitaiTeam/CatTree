@@ -10,6 +10,9 @@ public class CatTreeData {
     static SharedPreferences mData;
 
     public static String POINT = "CatTreePoint";
+    public static String CROP_YIELDS = "CropYields";
+    public static int CROP_ADD = 1;
+    public static int CROP_SUBTRACT = -1;
     public static String POURED_TIME = "CatTreePouredTime";
     static String INSTALL_DATE;
     static String PLAY_TIME;
