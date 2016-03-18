@@ -12,16 +12,18 @@ public class Menu {
     // 状態
     public static final int MENU_OPEN = 1; //メニューが開いている
     public static final int MENU_CLOSE = 0; //メニューが閉じている
+    public static final int PAGE_STATUS = 2; //ページ遷移
 
     // メンバ変数
     int mStatus;        // 状態
-    Vector2 mPos;        // 位置
+    Vector2 mPos;       // 位置
     MainView mMainView; // MainView
     Input mInput;       // 入力
     Stage mStage;       // ステージ
-    Album mAlbum; //アルバム
+    Album mAlbum;       //アルバム
     int mFrameNo;       // フレーム番号
-    int mPatternNo;    // パターン番号
+    int mPatternNo;     // パターン番号
+    int mPage;
     static boolean isBusy;
 
     // コンストラクタ
@@ -91,6 +93,22 @@ public class Menu {
                     // 他の画面がタッチされた：閉じる
                     mStatus = MENU_CLOSE;
                     isBusy(mStatus);
+                } else if (mInput.checkStatus(Input.STATUS_DOWN) && touchPrevAlbum()) {
+                    if(mAlbum.mPage > 1){
+                        mAlbum.draw(mAlbum.mPage-1);
+                    }
+                    mStatus = PAGE_STATUS;
+                } else if (mInput.checkStatus(Input.STATUS_DOWN) && touchNextAlbum()) {
+                    if(mAlbum.mPage < 5) {
+                        mAlbum.draw(mAlbum.mPage + 1);
+                    }
+                    mStatus = PAGE_STATUS;
+                }
+            }
+            break;
+            case PAGE_STATUS: {
+                if(mInput.checkStatus(Input.STATUS_UP)) {
+                    mStatus = MENU_OPEN;
                 }
             }
             break;
@@ -156,6 +174,22 @@ public class Menu {
         return false;
     }
 
+    public boolean touchNextAlbum() {
+        float x = mInput.getX();
+        float y = mInput.getY();
+        Log.i("touchNextAlbum",x+" "+y);
+        if (x > 330 && x < 430 && Math.abs(y) < 480 && Math.abs(y) > 450) return true;
+        return false;
+    }
+
+    public boolean touchPrevAlbum() {
+        float x = mInput.getX();
+        float y = mInput.getY();
+        Log.i("touchPrevAlbum",x+" "+y);
+        if (x > 50 && x < 150 && Math.abs(y) < 480 && Math.abs(y) > 450) return true;
+        return false;
+    }
+
     public boolean touchCloseMenu() {
         float x = mInput.getX();
         float y = mInput.getY();
@@ -194,8 +228,27 @@ public class Menu {
             params.setSprite(Game.BTN_CLOSE01);
             params.getPos().X = mPos.X;
             params.getPos().Y = mPos.Y;
+            params.getScl().X = 0.55f;
+            params.getScl().Y = 0.45f;
+            if(mAlbum.mPage>1) {
+                params = mMainView.getMainRenderer().allocDrawParams();
+                params.setSprite(Game.TEXNO_BTN_PREV01);
+                params.getPos().X = mPos.X;
+                params.getPos().Y = mPos.Y;
+                params.getScl().X = 0.55f;
+                params.getScl().Y = 0.45f;
+            }
+            if(mAlbum.mPage<5) {
+                params = mMainView.getMainRenderer().allocDrawParams();
+                params.setSprite(Game.TEXNO_BTN_NEXT01);
+                params.getPos().X = mPos.X;
+                params.getPos().Y = mPos.Y;
+                params.getScl().X = 0.55f;
+                params.getScl().Y = 0.45f;
+            }
+
             mInput.mMenuStatus = MENU_OPEN;
-            mAlbum.draw();
+            mAlbum.draw(mAlbum.mPage);
         } else {
             mInput.mMenuStatus = MENU_CLOSE;
         }
