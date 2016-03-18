@@ -37,6 +37,15 @@ public class CatTree {
         mLastGrowTime = System.currentTimeMillis();
     }
 
+    public void init() {
+        int yieldsCount = CatTreeData.getInt(CatTreeData.CROP_YIELDS, 0);
+        for (int i = 0; i < CAT_MAX; i++) {
+            if (i < yieldsCount) {
+                mCat[i].growUp(grow());
+            }
+        }
+    }
+
     public int grow() {
         return (int) (Math.random() * Game.CAT_KIND_NUM) + Game.TEXNO_BASE_CAT;
     }
@@ -83,7 +92,17 @@ public class CatTree {
             mLastGrowTime = System.currentTimeMillis();
             for (int i = 0; i < CAT_MAX; i++) {
                 if (mCat[i].growUp(grow())) break;
+                managedCrops(CatTreeData.CROP_ADD);
             }
+        }
+    }
+
+    private void managedCrops(int _cal) {
+        try {
+            int yields = CatTreeData.getInt(CatTreeData.CROP_YIELDS, 0);
+            CatTreeData.setInt(CatTreeData.CROP_YIELDS, yields + _cal);
+        } catch (Exception e) {
+
         }
     }
 

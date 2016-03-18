@@ -30,6 +30,9 @@ public class Game {
     public static final int TEXNO_LEAF = 16;        // 草
     public static final int TEXNO_ALBUM03 = 17;           // アルバム4
     public static final int TEXNO_ALBUM04 = 18;           // アルバム4
+    public static final int TEXNO_BTN_NEXT01 = 19;
+    public static final int TEXNO_BTN_PREV01 = 20;
+    public static final int TEXNO_SETTINGS = 21;    // 設定
     public static final int TEXNO_BASE_CAT = 100;   // 猫TEXTNOのベース
     public static final int TEXNO_CAT0 = 101;       // まいどさん
     public static final int TEXNO_CAT1 = 102;       // ぐれいさん
@@ -51,6 +54,27 @@ public class Game {
     public static final int TEXNO_RARE_CAT3 = 118;  // TODO:猫の名前書きます
     public static final int TEXNO_RARE_CAT4 = 119;  // TODO:猫の名前書きます
     public static final int TEXNO_RARE_CAT5 = 120;  // TODO:猫の名前書きます
+    public static final int TEXNO_ALBUM_PARTS0=200;
+    public static final int TEXNO_ALBUM_PARTS1=201;
+    public static final int TEXNO_ALBUM_PARTS2=202;
+    public static final int TEXNO_ALBUM_PARTS3=203;
+    public static final int TEXNO_ALBUM_PARTS4=204;
+    public static final int TEXNO_ALBUM_PARTS5=205;
+    public static final int TEXNO_ALBUM_PARTS6=206;
+    public static final int TEXNO_ALBUM_PARTS7=207;
+    public static final int TEXNO_ALBUM_PARTS8=208;
+    public static final int TEXNO_ALBUM_PARTS9=209;
+    public static final int TEXNO_ALBUM_PARTS10=210;
+    public static final int TEXNO_ALBUM_PARTS11=211;
+    public static final int TEXNO_ALBUM_PARTS12=212;
+    public static final int TEXNO_ALBUM_PARTS13=213;
+    public static final int TEXNO_ALBUM_PARTS14=214;
+    public static final int TEXNO_ALBUM_PARTS15=215;
+    public static final int TEXNO_ALBUM_PARTS16=216;
+    public static final int TEXNO_ALBUM_PARTS17=217;
+    public static final int TEXNO_ALBUM_PARTS18=218;
+    public static final int TEXNO_ALBUM_PARTS19=219;
+    public static final int TEXNO_ALBUM_PARTS20=220;
 
     // メンバー変数
     MainActivity mMainActivity;
@@ -66,17 +90,19 @@ public class Game {
     CatTree mCatTree;
     Shop mShop;
     WateringPot[] mWateringPot = new WateringPot[2];
+    //Album mAlbum;
 
     // コンストラクタ
     public Game() {
         mStage = new Stage();
         mCatTree = new CatTree();
-        mShop = new Shop();
+        //mShop = new Shop();
         mWateringPot[0] = new WateringPot();
         mWateringPot[0].setPatternNo(Game.TEXNO_POT_FILL);
         mWateringPot[1] = new WateringPot();
         mWateringPot[1].setPatternNo(Game.TEXNO_POT_EMPTY);
         mMenu = new Menu();
+        //mAlbum = new Album();
     }
 
     // viewの設定
@@ -97,8 +123,8 @@ public class Game {
         mCatTree.setStage(mStage);
         mCatTree.setMenu(mMenu);
         mCatTree.setWateringPot(mWateringPot[0]);
-        mShop.setView(_view);
-        mShop.setInput(mInput);
+        //mShop.setView(_view);
+        //mShop.setInput(mInput);
 
         mWateringPot[0].setView(_view);
         mWateringPot[0].setInput(mInput);
@@ -111,10 +137,10 @@ public class Game {
         // 各テクスチャ読み込み
         mMyRenderer.getTexture(TEXNO_BACK).readTexture(mMainActivity, "main_bg.png", 960, 1440, 0.0f, 0.0f, 0.0f, 0.0f);
         mMyRenderer.getTexture(TEXNO_CATTREE).readTexture(mMainActivity, "tree.png", 512, 512, 256.0f, 256.0f, 0.0f, 0.0f);
-        mMyRenderer.getTexture(TEXNO_MENU01).readTexture(mMainActivity, "menu_config_shop.png", 100, 100, 104.0f, 122.0f, 0.0f, 540.0f);
-        mMyRenderer.getTexture(TEXNO_MENU02).readTexture(mMainActivity, "menu_config_goods.png", 100, 100, 104.0f, 122.0f, 120.0f, 540.0f);
-        mMyRenderer.getTexture(TEXNO_MENU03).readTexture(mMainActivity, "menu_config_album.png", 100, 100, 104.0f, 122.0f, 240.0f, 540.0f);
-        mMyRenderer.getTexture(TEXNO_MENU04).readTexture(mMainActivity, "menu_config_active.png", 100, 100, 104.0f, 122.0f, 360.0f, 540.0f);
+        mMyRenderer.getTexture(TEXNO_MENU01).readTexture(mMainActivity, "menu_config_shop.png", 250, 250, 0.0f, 55.0f, 0.0f, 540.0f);
+        mMyRenderer.getTexture(TEXNO_MENU02).readTexture(mMainActivity, "menu_config_goods.png", 250, 250, 0.0f, 55.0f, 120.0f, 540.0f);
+        mMyRenderer.getTexture(TEXNO_MENU03).readTexture(mMainActivity, "menu_config_album.png", 250, 250, 0.0f, 55.0f, 240.0f, 540.0f);
+        mMyRenderer.getTexture(TEXNO_MENU04).readTexture(mMainActivity, "menu_config_active.png", 250, 250, 0.0f, 55.0f, 360.0f, 540.0f);
         mMyRenderer.getTexture(TEXNO_WOOD_STEM).readTexture(mMainActivity, "wood_stem.png", 850, 1012, 425.0f, 506.0f, -425.0f, -506.0f);
         mMyRenderer.getTexture(TEXNO_WOOD_LEAF).readTexture(mMainActivity, "wood_leaf.png", 850, 1012, 425.0f, 506.0f, -425.0f, -506.0f);
         mMyRenderer.getTexture(TEXNO_ZARU).readTexture(mMainActivity, "zaru.png", Zaru.WIDTH, Zaru.HEIGHT, 120.0f, 115.0f, -120.0f, -115.0f);
@@ -141,12 +167,36 @@ public class Game {
         mMyRenderer.getTexture(TEXNO_POT_FILL).readTexture(mMainActivity, "pot_fill.png", 250, 205, 125.0f, 102.5f, -125.0f, -102.5f);
         mMyRenderer.getTexture(TEXNO_POT_EMPTY).readTexture(mMainActivity, "pot_empty.png", 250, 205, 125.0f, 102.5f, -125.0f, -102.5f);
         mMyRenderer.getTexture(TEXNO_SHOP).readTexture(mMainActivity, "shop.png", 128, 128, 0.0f, 0.0f, 0.0f, 0.0f);
-        mMyRenderer.getTexture(TEXNO_ALBUM01).readTexture(mMainActivity, "album.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
-        mMyRenderer.getTexture(TEXNO_ALBUM02).readTexture(mMainActivity, "album.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
-        mMyRenderer.getTexture(TEXNO_ALBUM03).readTexture(mMainActivity, "album.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
-        mMyRenderer.getTexture(TEXNO_ALBUM04).readTexture(mMainActivity, "album.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
-        mMyRenderer.getTexture(BTN_CLOSE01).readTexture(mMainActivity, "x.png", 60, 60, 0.0f, 0.0f, 280.0f, -120.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM01).readTexture(mMainActivity, "album_bg.png", 2048, 1092, 0.0f, 0.0f, -110.0f, -280.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM02).readTexture(mMainActivity, "album_bg.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM03).readTexture(mMainActivity, "album_list_bg.png", 2048, 1010, 0.0f, 0.0f, -110.0f, -280.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM04).readTexture(mMainActivity, "album_bg.png", 470, 300, 0.0f, 0.0f, -80.0f, -100.0f);
+        mMyRenderer.getTexture(BTN_CLOSE01).readTexture(mMainActivity, "common_btn_close.png", 256, 95, 120.0f, 330.0f, -0.0f, -0.0f);
+        mMyRenderer.getTexture(TEXNO_BTN_PREV01).readTexture(mMainActivity, "album_list_preview.png", 180, 85, -150.0f, 250.0f, -0.0f, -0.0f);
+        mMyRenderer.getTexture(TEXNO_BTN_NEXT01).readTexture(mMainActivity, "album_list_next.png", 180, 55, 450.0f, 250.0f, -0.0f, -0.0f);
         mMyRenderer.getTexture(TEXNO_LEAF).readTexture(mMainActivity, "cat_leaf.png", 170, 90, 85.0f, 45.0f, -85.0f, -45.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS0).readTexture(mMainActivity, "album_ph_no_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS1).readTexture(mMainActivity, "album_list_cat_01maido.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS2).readTexture(mMainActivity, "album_list_cat_02gray.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS3).readTexture(mMainActivity, "album_list_cat_03lucky.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS4).readTexture(mMainActivity, "album_list_cat_04keroyan.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS5).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS6).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS7).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS8).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS9).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS10).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS11).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS12).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS13).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS14).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS15).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS16).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS17).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS18).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS19).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_ALBUM_PARTS20).readTexture(mMainActivity, "album_ph_maido_s.png", 338, 335, 169.0f, 167.0f, -169.0f, -167.0f);
+        mMyRenderer.getTexture(TEXNO_SETTINGS).readTexture(mMainActivity, "settings.png", 512, 470, 256.0f, 235.0f, -256.0f, -235.0f);
 
         // 各SE読み込み
         mSePlayer.initialize(mMainActivity);
@@ -164,6 +214,7 @@ public class Game {
         CatTreeData.init(mMainActivity);
         mWateringPot[0].setPouredTime(CatTreeData.getLong(CatTreeData.POURED_TIME, 0));
         mWateringPot[1].setPouredTime(CatTreeData.getLong(CatTreeData.POURED_TIME, 0));
+        mCatTree.init();
     }
 
     // 毎フレーム処理(FPS毎にMainThreadから呼ばれます)
@@ -176,7 +227,7 @@ public class Game {
         mCatTree.frameFunction();
 
         // お店のフレーム処理
-        mShop.frameFunction();
+        //mShop.frameFunction();
 
         // じょうろ描画
         mWateringPot[0].frameFunction();
@@ -198,7 +249,7 @@ public class Game {
         // ねこのなる木描画
         mCatTree.draw();
         // お店描画
-        mShop.draw();
+        //mShop.draw();
 
         // じょうろ描画
         mWateringPot[0].draw();
@@ -206,5 +257,6 @@ public class Game {
 
         // メニュー描画
         mMenu.draw();
+        //mAlbum.draw();
     }
 }
